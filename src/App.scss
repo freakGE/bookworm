@@ -1,0 +1,90 @@
+//colors
+
+$bgClr: hsl(213, 16%, 14%);
+$primaryClr: hsl(180, 2%, 88%);
+$secondaryClr: hsl(26, 96%, 56%);
+//hover
+$secondaryClrHover: hsla(26, 90%, 56%, 1);
+//Focus
+$secondaryClrFocus: hsla(26, 90%, 53%, 1);
+
+///////////
+
+.wrapper {
+  width: min(100%, 70rem);
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0rem 2rem;
+  background-color: $bgClr;
+  color: $primaryClr;
+
+  .header-container {
+    // background-color: red;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    span {
+      color: $secondaryClr;
+    }
+
+    .shelf > * {
+      // background-color: red;
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    form {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      // background-color: red;
+      width: min(45rem, 60%);
+      //   min-width: 10rem;
+      // width: 20rem;
+      height: 2.5rem;
+      margin: 0;
+      padding: 0;
+      border-radius: 0.4rem;
+      overflow: hidden;
+
+      input {
+        margin: 0;
+        padding: 0;
+        padding-left: 0.5rem;
+        width: 90%;
+        height: 100%;
+        border: none;
+
+        font-size: 1rem;
+
+        &:focus {
+          outline: none;
+        }
+      }
+      button {
+        background-color: $secondaryClr;
+        color: $primaryClr;
+        font-size: 2rem;
+        border: none;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        width: 10%;
+        height: 100%;
+        &:hover {
+          background-color: $secondaryClrHover;
+        }
+        &:active {
+          background-color: $secondaryClrFocus;
+        }
+      }
+    }
+  }
+}

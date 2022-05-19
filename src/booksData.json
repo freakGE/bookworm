@@ -1,0 +1,106 @@
+{
+  "info": [
+    {
+      "booksList": "https://www.goodreads.com/list/show/9440.100_Best_Books_of_All_Time_The_World_Library_List",
+      "searchGenre": "site:www.sparknotes.com what genre was ```Title``` ",
+      "booksCover": "```Title``` book cover | images |> size: wallpaper, layout: tall"
+    }
+  ],
+  "books": [
+    {
+      "id": 1,
+      "author": "Jane Austen",
+      "title": "Pride and Prejudice",
+      "description": "Since its immediate success in 1813, Pride and Prejudice has remained one of the most popular novels in the English language. Jane Austen called this brilliant work \"her own darling child\" and its vivacious heroine, Elizabeth Bennet, \"as delightful a creature as ever appeared in print.\" The romantic clash between the opinionated Elizabeth and her proud beau, Mr. Darcy, is a splendid performance of civilized sparring. And Jane Austen's radiant wit sparkles as her characters dance a delicate quadrille of flirtation and intrigue, making this book the most superb comedy of manners of Regency England.",
+      "rating": "4.28",
+      "image": "./assets/books/pride-and-prejudice.png",
+      "genre": ["Novel of Manners", "Realism"]
+    },
+    {
+      "id": 2,
+      "author": "George Orwell",
+      "title": "1984",
+      "description": "Among the seminal texts of the 20th century, Nineteen Eighty-Four is a rare work that grows more haunting as its futuristic purgatory becomes more real. Published in 1949, the book offers political satirist George Orwell's nightmarish vision of a totalitarian, bureaucratic world and one poor stiff's attempt to find individuality. The brilliance of the novel is Orwell's prescience of modern life—the ubiquity of television, the distortion of the language—and his ability to construct such a thorough version of hell. Required reading for students since it was published, it ranks among the most terrifying novels ever written.",
+      "rating": "4.19",
+      "image": "./assets/books/1984.png",
+      "genre": ["Dystopian Fiction", "Science Fiction"]
+    },
+    {
+      "id": 3,
+      "author": "Fyodor Dostoevsky",
+      "title": "Crime and Punishment",
+      "description": "Raskolnikov, a destitute and desperate former student, wanders through the slums of St Petersburg and commits a random murder without remorse or regret. He imagines himself to be a great man, a Napoleon: acting for a higher purpose beyond conventional moral law. But as he embarks on a dangerous game of cat and mouse with a suspicious police investigator, Raskolnikov is pursued by the growing voice of his conscience and finds the noose of his own guilt tightening around his neck. Only Sonya, a downtrodden sex worker, can offer the chance of redemption.",
+      "rating": "4.24",
+      "image": "./assets/books/crime-and-punishment.png",
+      "genre": ["Psychological drama"]
+    },
+    {
+      "id": 4,
+      "author": "William Shakespeare",
+      "title": "Hamlet",
+      "description": "Among Shakespeare's plays, \"Hamlet\" is considered by many his masterpiece. Among actors, the role of Hamlet, Prince of Denmark, is considered the jewel in the crown of a triumphant theatrical career. Now Kenneth Branagh plays the leading role and co-directs a brillant ensemble performance. Three generations of legendary leading actors, many of whom first assembled for the Oscar-winning film \"Henry V\", gather here to perform the rarely heard complete version of the play. This clear, subtly nuanced, stunning dramatization, presented by The Renaissance Theatre Company in association with \"Bbc\" Broadcasting, features such luminaries as Sir John Gielgud, Derek Jacobi, Emma Thompson and Christopher Ravenscroft. It combines a full cast with stirring music and sound effects to bring this magnificent Shakespearen classic vividly to life. Revealing new riches with each listening, this production of \"Hamlet\" is an invaluable aid for students, teachers and all true lovers of Shakespeare - a recording to be treasured for decades to come.",
+      "rating": "4.03",
+      "image": "./assets/books/hamlet.png",
+      "genre": ["Tragedy novel"]
+    },
+    {
+      "id": 5,
+      "author": "Gabriel García Márquez",
+      "title": "One Hundred Years of Solitude",
+      "description": "The brilliant, bestselling, landmark novel that tells the story of the Buendia family, and chronicles the irreconcilable conflict between the desire for solitude and the need for love—in rich, imaginative prose that has come to define an entire genre known as \"magical realism.\"",
+      "rating": "4.1",
+      "image": "./assets/books/one-hundred-years-of-solitude.png",
+      "genre": ["Magical realism"]
+    },
+    {
+      "id": 6,
+      "author": "Leo Tolstoy",
+      "title": "Anna Karenina",
+      "description": "Acclaimed by many as the world's greatest novel, Anna Karenina provides a vast panorama of contemporary life in Russia and of humanity in general. In it Tolstoy uses his intense imaginative insight to create some of the most memorable characters in literature. Anna is a sophisticated woman who abandons her empty existence as the wife of Karenin and turns to Count Vronsky to fulfil her passionate nature - with tragic consequences. Levin is a reflection of Tolstoy himself, often expressing the author's own views and convictions.\nThroughout, Tolstoy points no moral, merely inviting us not to judge but to watch. As Rosemary Edmonds comments, 'He leaves the shifting patterns of the kaleidoscope to bring home the meaning of the brooding words following the title, 'Vengeance is mine, and I will repay.",
+      "rating": "4.07",
+      "image": "./assets/books/anna-karenina.png",
+      "genre": ["Novel of ideas", "Psychological novel", "Tragedy"]
+    },
+    {
+      "id": 7,
+      "author": "Homer",
+      "title": "The Odyssey",
+      "description": "Sing to me of the man, Muse, the man of twists and turns driven time and again off course, once he had plundered the hallowed heights of Troy.\n\nSo begins Robert Fagles' magnificent translation of the Odyssey.\n\nIf the Iliad is the world's greatest war epic, then the Odyssey is literature's grandest evocation of everyman's journey though life. Odysseus' reliance on his wit and wiliness for survival in his encounters with divine and natural forces, during his ten-year voyage home to Ithaca after the Trojan War, is at once a timeless human story and an individual test of moral endurance.\n\nIn the myths and legends that are retold here, Fagles has captured the energy and poetry of Homer's original in a bold, contemporary idiom, and given us an Odyssey to read aloud, to savor, and to treasure for its sheer lyrical mastery.\n\nRenowned classicist Bernard Knox's superb Introduction and textual commentary provide new insights and background information for the general reader and scholar alike, intensifying the strength of Fagles' translation.\n\nThis is an Odyssey to delight both the classicist and the public at large, and to captivate a new generation of Homer's students.\n\n--\n\nRobert Fagles, winner of the PEN/Ralph Manheim Medal for Translation and a 1996 Academy Award in Literature from the American Academy of Arts and Letters, presents us with Homer's best-loved and most accessible poem in a stunning new modern-verse translation.",
+      "rating": "3.79",
+      "image": "./assets/books/the-odyssey.png",
+      "genre": ["Literary Devices"]
+    },
+    {
+      "id": 8,
+      "author": "Albert Camus",
+      "title": "The Stranger",
+      "description": "Through the story of an ordinary man unwittingly drawn into a senseless murder on an Algerian beach, Camus explored what he termed \"the nakedness of man faced with the absurd.\" First published in English in 1946; now in a new translation by Matthew Ward.",
+      "rating": "4.00",
+      "image": "./assets/books/the-stranger.png",
+      "genre": ["Existential novel", "Crime drama"]
+    },
+    {
+      "id": 9,
+      "author": "Fyodor Dostoevsky",
+      "title": "The Brothers Karamazov",
+      "description": "The Brothers Karamazov is a murder mystery, a courtroom drama, and an exploration of erotic rivalry in a series of triangular love affairs involving the “wicked and sentimental” Fyodor Pavlovich Karamazov and his three sons―the impulsive and sensual Dmitri; the coldly rational Ivan; and the healthy, red-cheeked young novice Alyosha. Through the gripping events of their story, Dostoevsky portrays the whole of Russian life, is social and spiritual striving, in what was both the golden age and a tragic turning point in Russian culture.\n\nThis award-winning translation by Richard Pevear and Larissa Volokhonsky remains true to the verbal inventiveness of Dostoevsky’s prose, preserving the multiple voices, the humor, and the surprising modernity of the original. It is an achievement worthy of Dostoevsky’s last and greatest novel.",
+      "rating": "4.34",
+      "image": "./assets/books/the-brothers-karamazov.png",
+      "genre": [
+        "Realist novel",
+        "Novel of ideas",
+        "Symbolic novel",
+        "Dynastic novel"
+      ]
+    },
+    {
+      "id": 10,
+      "author": "Ernest Hemingway",
+      "title": "The Old Man and the Sea",
+      "description": "This short novel, already a modern classic, is the superbly told, tragic story of a Cuban fisherman in the Gulf Stream and the giant Marlin he kills and loses—specifically referred to in the citation accompanying the author's Nobel Prize for literature in 1954.",
+      "rating": "3.79",
+      "image": "./assets/books/the-old-man-and-the-sea.png",
+      "genre": ["Parable", "Tragedy"]
+    }
+  ]
+}

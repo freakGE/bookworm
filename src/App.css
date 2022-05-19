@@ -1,38 +1,68 @@
-.App {
-  text-align: center;
+.wrapper {
+  width: min(100%, 70rem);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  padding: 0rem 2rem;
+  background-color: hsl(213deg, 16%, 14%);
+  color: hsl(180deg, 2%, 88%);
 }
-
-.App-link {
-  color: #61dafb;
+header .header-container {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+header .header-container span {
+  color: hsl(26deg, 96%, 56%);
 }
+header .header-container .shelf > * {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+header .header-container form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: min(45rem, 60%);
+  height: 2.5rem;
+  margin: 0;
+  padding: 0;
+  border-radius: 0.4rem;
+  overflow: hidden;
+}
+header .header-container form input {
+  margin: 0;
+  padding: 0;
+  padding-left: 0.5rem;
+  width: 90%;
+  height: 100%;
+  border: none;
+  font-size: 1rem;
+}
+header .header-container form input:focus {
+  outline: none;
+}
+header .header-container form button {
+  background-color: hsl(26deg, 96%, 56%);
+  color: hsl(180deg, 2%, 88%);
+  font-size: 2rem;
+  border: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  width: 10%;
+  height: 100%;
+}
+header .header-container form button:hover {
+  background-color: hsl(26deg, 90%, 56%);
+}
+header .header-container form button:active {
+  background-color: hsl(26deg, 90%, 53%);
+}/*# sourceMappingURL=App.css.map */
