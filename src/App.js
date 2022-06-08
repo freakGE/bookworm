@@ -1,51 +1,154 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Routes,
+  Switch,
+} from "react-router-dom";
+
 import "./App.css";
 
 import booksData from "./booksData.json";
 import MetaTags from "./components/MetaTags";
+import Home from "./components/Home";
+import Shelf from "./components/Shelf";
+import Footer from "./components/Footer";
 
 import { AiOutlineSearch } from "react-icons/ai";
 import { GiBookshelf } from "react-icons/gi";
 
+import { ShelfView } from "./features/shelf/ShelfView";
+
 function App() {
+  const [screenSize, getDimension] = useState({
+    dynamicWidth: window.innerWidth,
+    dynamicHeight: window.innerHeight,
+  });
+
+  const setDimension = () => {
+    getDimension({
+      dynamicWidth: window.innerWidth,
+      dynamicHeight: window.innerHeight,
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", setDimension);
+
+    return () => {
+      window.removeEventListener("resize", setDimension);
+    };
+  }, [screenSize]);
+
+  //
   // console.log(booksData.books);
   const [book, setBook] = useState("");
+  const [searching, setSearching] = useState(false);
+
+  const handleSearch = e => {
+    setSearching(true);
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
+
+    if (screenSize.dynamicWidth <= 600) {
+      setSearching(false);
+    }
   };
 
   const handleChange = e => {
     setBook(e.target.value);
   };
+
   return (
     <>
       <MetaTags />
-      <div className="App">
-        <header>
-          <div className="header-container wrapper">
-            <h2>
-              book<span>Worm</span>
-            </h2>
+      <Router>
+        <div className="App">
+          {screenSize.dynamicWidth > 600 ? (
+            <header>
+              <div className="header-container wrapper">
+                <Link to="/">
+                  <h2>
+                    book<span>Worm</span>
+                  </h2>
+                </Link>
 
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="book"></label>
-              <input
-                type="text"
-                placeholder="Search Book"
-                onChange={handleChange}
-              />
-              <button type="submit" className="btn">
-                <AiOutlineSearch />
-              </button>
-            </form>
+                <form onSubmit={handleSubmit}>
+                  <label htmlFor="book"></label>
+                  <input
+                    type="text"
+                    placeholder="Search Book"
+                    onChange={handleChange}
+                  />
+                  <button type="submit" className="btn">
+                    <AiOutlineSearch />
+                  </button>
+                </form>
 
-            <div className="shelf">
-              <GiBookshelf />
-            </div>
-          </div>
-        </header>
-      </div>
+                <Link to="/shelf">
+                  <ShelfView />
+                </Link>
+              </div>
+            </header>
+          ) : (
+            <header>
+              <div className="header-container wrapper">
+                {searching ? (
+                  <motion.form
+                    onSubmit={handleSubmit}
+                    initial={{ width: "0%" }}
+                    animate={{
+                      width: "85%",
+                    }}
+                    exit={{ width: "0%" }}
+                  >
+                    <label htmlFor="book"></label>
+                    <input
+                      type="text"
+                      placeholder="Search Book"
+                      onChange={handleChange}
+                    />
+                    <button type="submit" className="btn">
+                      <AiOutlineSearch />
+                    </button>
+                  </motion.form>
+                ) : (
+                  <>
+                    <div className="btn-search" onClick={handleSearch}>
+                      <AiOutlineSearch />
+                    </div>
+                    <Link to="/">
+                      <h2>
+                        book<span>Worm</span>
+                      </h2>
+                    </Link>
+                  </>
+                )}
+
+                <Link to="/shelf">
+                  <ShelfView />
+                </Link>
+              </div>
+            </header>
+          )}
+
+          <Routes>
+            <Route exact path="/" element={<Home />}></Route>
+            <Route path="/shelf" element={<Shelf />}></Route>
+            {/* <Route
+              path={`/categories/(${booksCategories.map(cat => cat).join("|")})`}
+              element={<Home category={booksCategories} />}
+            /> */}
+          </Routes>
+
+          <Footer />
+        </div>
+      </Router>
     </>
   );
 }

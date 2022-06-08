@@ -1,8 +1,22 @@
+html {
+  scrollbar-color: #404449 #f0f0f0;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
 .wrapper {
   width: min(100%, 70rem);
 }
 
 header {
+  height: 8vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,14 +25,52 @@ header {
   color: hsl(180deg, 2%, 88%);
 }
 header .header-container {
+  height: 100%;
   padding: 0;
   margin: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+header .header-container .btn-search {
+  width: 2.5rem;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header .header-container .btn-search > * {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2.5rem;
+  color: hsl(180deg, 2%, 88%);
+}
+header .header-container .btn-search > *:hover {
+  color: hsl(26deg, 90%, 56%);
+}
+header .header-container .btn-search > *:focus {
+  color: hsl(26deg, 90%, 53%);
+}
+header .header-container a {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: hsl(180deg, 2%, 88%);
+  text-decoration: none;
+}
 header .header-container span {
   color: hsl(26deg, 96%, 56%);
+}
+header .header-container .shelf {
+  width: 2.5rem;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 header .header-container .shelf > * {
   width: 2.5rem;
@@ -65,4 +117,45 @@ header .header-container form button:hover {
 }
 header .header-container form button:active {
   background-color: hsl(26deg, 90%, 53%);
+}
+
+footer {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 4vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(213deg, 16%, 14%);
+  color: hsl(180deg, 2%, 88%);
+}
+footer a {
+  color: hsl(26deg, 96%, 56%);
+}
+footer a:hover {
+  color: hsl(26deg, 90%, 56%);
+}
+footer a:active {
+  color: hsl(26deg, 90%, 53%);
+}
+
+@media screen and (max-width: 600px) {
+  header .header-container form {
+    width: calc(90% - 1.25rem);
+  }
+  header .header-container form button {
+    background-color: white;
+    color: hsl(26deg, 96%, 56%);
+    width: 12.5%;
+  }
+  header .header-container form button:hover {
+    background-color: white;
+    color: hsl(26deg, 90%, 56%);
+  }
+  header .header-container form button:active {
+    background-color: white;
+    color: hsl(26deg, 90%, 53%);
+  }
 }/*# sourceMappingURL=App.css.map */

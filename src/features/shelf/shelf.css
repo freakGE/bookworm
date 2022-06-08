@@ -1,0 +1,35 @@
+.shelf {
+  position: relative;
+}
+
+.shelfCircle {
+  position: absolute;
+  right: -0.5rem;
+  top: 1rem;
+  color: rgb(224, 225, 225);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1.4rem;
+  max-height: 1.4rem;
+  border-radius: 50%;
+  border: 2px solid hsl(213deg, 16%, 14%);
+}
+
+.shelfCircle > svg {
+  color: hsl(26deg, 96%, 56%);
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.shelfLength {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  position: absolute;
+  z-index: 2;
+  font-size: 1.1rem;
+  font-weight: bolder;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(224, 225, 225);
+}/*# sourceMappingURL=shelf.css.map */

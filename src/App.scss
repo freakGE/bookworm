@@ -9,11 +9,27 @@ $secondaryClrHover: hsla(26, 90%, 56%, 1);
 $secondaryClrFocus: hsla(26, 90%, 53%, 1);
 
 ///////////
+// scrollbar
+html {
+  scrollbar-color: #404449 #f0f0f0;
+}
+
+//
+
+button,
+a {
+  cursor: pointer;
+}
+a {
+  text-decoration: none;
+}
 
 .wrapper {
   width: min(100%, 70rem);
+  // background-color: red;
 }
 header {
+  height: 8vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,6 +38,42 @@ header {
   color: $primaryClr;
 
   .header-container {
+    height: 100%;
+    .btn-search {
+      width: 2.5rem;
+      // height: 2.5rem;
+      height: 100%;
+      // background-color: red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .btn-search > * {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 2rem;
+      height: 2.5rem;
+      // height: 2.5rem;
+      color: $primaryClr;
+
+      &:hover {
+        color: $secondaryClrHover;
+      }
+      &:focus {
+        color: $secondaryClrFocus;
+      }
+    }
+    a {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $primaryClr;
+      text-decoration: none;
+    }
     // background-color: red;
     padding: 0;
     margin: 0;
@@ -32,6 +84,15 @@ header {
       color: $secondaryClr;
     }
 
+    .shelf {
+      width: 2.5rem;
+      // height: 2.5rem;
+      height: 100%;
+      // background-color: red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     .shelf > * {
       // background-color: red;
       width: 2.5rem;
@@ -83,6 +144,55 @@ header {
         }
         &:active {
           background-color: $secondaryClrFocus;
+        }
+      }
+    }
+  }
+}
+
+footer {
+  position: absolute;
+  // bottom: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 4vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $bgClr;
+  color: $primaryClr;
+
+  a {
+    color: $secondaryClr;
+
+    &:hover {
+      color: $secondaryClrHover;
+    }
+    &:active {
+      color: $secondaryClrFocus;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  header {
+    .header-container {
+      form {
+        width: calc(90% - 1.25rem);
+        button {
+          background-color: white;
+          color: $secondaryClr;
+          width: 12.5%;
+          // padding-right: 5px;
+          &:hover {
+            background-color: white;
+            color: $secondaryClrHover;
+          }
+          &:active {
+            background-color: white;
+            color: $secondaryClrFocus;
+          }
         }
       }
     }

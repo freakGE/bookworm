@@ -1,0 +1,59 @@
+$bgClr: hsl(213, 16%, 14%);
+// $clr: rgb(239, 240, 240);
+$primaryClr: rgb(224, 225, 225);
+// $primaryClr: hsl(180, 2%, 88%);
+
+$secondaryClr: hsl(26, 96%, 56%);
+//hover
+$secondaryClrHover: hsla(26, 90%, 56%, 1);
+//Focus
+$secondaryClrFocus: hsla(26, 90%, 53%, 1);
+
+.shelf {
+  position: relative;
+}
+
+.shelfCircle {
+  position: absolute;
+  right: -0.5rem;
+  top: 1rem;
+  color: $primaryClr;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1.4rem;
+  max-height: 1.4rem;
+
+  border-radius: 50%;
+  border: 2px solid $bgClr;
+}
+
+.shelfCircle > svg {
+  color: $secondaryClr;
+  min-width: 100%;
+  min-height: 100%;
+}
+.shelfLength {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  position: absolute;
+  z-index: 2;
+  font-size: 1.1rem;
+  font-weight: bolder;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: $primaryClr;
+}
+
+// .shelfLength {
+//   //   position: relative;
+//   position: absolute;
+//   right: 15px;
+//   z-index: 2;
+//   //   color: $primaryClr;
+// }
+
+// .shelfLength > * {
+//   position: absolute;
+//   //   color: white;
+// }
