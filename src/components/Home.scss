@@ -509,6 +509,37 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
   // background-color: red;
   color: $bgClr;
   min-height: calc(100vh - (4vh + 8vh));
+  .header {
+    position: relative;
+    background-color: $primaryClr;
+    // border-top-left-radius: 5rem;
+    // border-top-right-radius: 10rem;
+    // border-bottom: 1px solid $bgClr;
+    height: 7rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    h1 {
+      margin: 0;
+      padding: 0;
+      color: $bgClr;
+      font-weight: lighter;
+      letter-spacing: 2px;
+      font-size: 2rem;
+      // line-height: 200%;
+    }
+    .line {
+      position: absolute;
+      bottom: 0;
+      border-radius: 5rem;
+      height: 2px;
+      width: min(100%, 70rem);
+
+      background-color: $bgClr;
+    }
+  }
   .books-container {
     // padding: 15px 0;
     // background-color: blue;
@@ -644,6 +675,7 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
     }
   }
 }
+
 .emptyShelf {
   height: calc(100vh - (4vh + 8vh));
   width: 100%;
@@ -678,7 +710,7 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
 .toHome {
   overflow: hidden;
   background-color: $bgClr;
-  background-color: $primaryClr;
+  // background-color: $primaryClr;
   position: absolute;
   // width: 4rem;
   // height: 3rem;
@@ -700,7 +732,7 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
   }
   a {
     color: $primaryClr;
-    color: $bgClr;
+    // color: $bgClr;
     font-weight: bolder;
     font-size: 1.25rem;
     &:hover {
@@ -756,7 +788,19 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
       }
     }
   }
+  .emptyShelf {
+    .shelfStyle {
+      // flex-direction: column;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+    span {
+      font-size: 3rem;
+    }
+  }
 }
+
 @media screen and (max-width: 545px) {
   .main {
     .books-container {
@@ -770,6 +814,19 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
       .card-cont {
         width: 90%;
       }
+    }
+  }
+}
+@media screen and (max-width: 480px) {
+  .emptyShelf {
+    .shelfStyle {
+      // flex-direction: column;
+    }
+    h1 {
+      font-size: 1.8rem;
+    }
+    span {
+      font-size: 2.5rem;
     }
   }
 }
@@ -790,6 +847,22 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
       .card-cont {
         width: 90%;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .emptyShelf {
+    .shelfStyle {
+      // flex-direction: column;
+      border-radius: 2rem;
+      padding: 0 0.5rem;
+    }
+    h1 {
+      font-size: 1.8rem;
+    }
+    span {
+      font-size: 2.5rem;
     }
   }
 }

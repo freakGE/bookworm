@@ -14,13 +14,13 @@ export default function ToHome() {
       whileTap={{ scale: 0.8 }}
       initial={{
         x: -160,
-        y: 40,
+        y: 15,
         opacity: 0.75,
         scale: 0.9,
       }}
       animate={{
         x: -80,
-        y: 40,
+        y: 15,
         opacity: 1,
       }}
       exit={{ opacity: 0 }}

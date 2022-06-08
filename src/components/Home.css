@@ -409,6 +409,32 @@
   color: hsl(213deg, 16%, 14%);
   min-height: 88vh;
 }
+.shelfSection .header {
+  position: relative;
+  background-color: rgb(224, 225, 225);
+  height: 7rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.shelfSection .header h1 {
+  margin: 0;
+  padding: 0;
+  color: hsl(213deg, 16%, 14%);
+  font-weight: lighter;
+  letter-spacing: 2px;
+  font-size: 2rem;
+}
+.shelfSection .header .line {
+  position: absolute;
+  bottom: 0;
+  border-radius: 5rem;
+  height: 2px;
+  width: min(100%, 70rem);
+  background-color: hsl(213deg, 16%, 14%);
+}
 .shelfSection .books-container {
   width: 100%;
   height: auto;
@@ -536,7 +562,6 @@
 .toHome {
   overflow: hidden;
   background-color: hsl(213deg, 16%, 14%);
-  background-color: rgb(224, 225, 225);
   position: absolute;
   padding-right: 0.2rem;
   padding-left: 5rem;
@@ -556,7 +581,6 @@
 }
 .toHome a {
   color: rgb(224, 225, 225);
-  color: hsl(213deg, 16%, 14%);
   font-weight: bolder;
   font-size: 1.25rem;
 }
@@ -597,6 +621,13 @@
   .main .item img {
     width: 80%;
   }
+
+  .emptyShelf h1 {
+    font-size: 2rem;
+  }
+  .emptyShelf span {
+    font-size: 3rem;
+  }
 }
 @media screen and (max-width: 545px) {
   .main .books-container {
@@ -610,6 +641,14 @@
     width: 90%;
   }
 }
+@media screen and (max-width: 480px) {
+  .emptyShelf h1 {
+    font-size: 1.8rem;
+  }
+  .emptyShelf span {
+    font-size: 2.5rem;
+  }
+}
 @media screen and (max-width: 450px) {
   .inner-carousel .item {
     min-width: 100%;
@@ -620,5 +659,17 @@
   }
   .main .item .card-cont {
     width: 90%;
+  }
+}
+@media screen and (max-width: 400px) {
+  .emptyShelf .shelfStyle {
+    border-radius: 2rem;
+    padding: 0 0.5rem;
+  }
+  .emptyShelf h1 {
+    font-size: 1.8rem;
+  }
+  .emptyShelf span {
+    font-size: 2.5rem;
   }
 }/*# sourceMappingURL=Home.css.map */

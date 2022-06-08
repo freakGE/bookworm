@@ -288,9 +288,13 @@ export default function Shelf() {
 
         {shelf.length > 0 ? (
           <>
-            {/* <h1>Bookshelf</h1> */}
-            <Categories mode="light" />
+            <div className="header">
+              <h1>Bookshelf</h1>
+              {/* <div className="line"></div> */}
+            </div>
             <div className="main wrapper">
+              <Categories mode="dark" />
+              {/* <Categories mode="light" /> */}
               <div className="books-container" style={booksContainerStyle}>
                 {data.map((book, index) => {
                   return (
@@ -360,7 +364,9 @@ export default function Shelf() {
                         style={{
                           width:
                             screenSize.dynamicWidth < 390
-                              ? "90%"
+                              ? data.length === 1
+                                ? "11rem"
+                                : "90%"
                               : screenSize.dynamicWidth < mobileWidth &&
                                 data.length === 1
                               ? "11rem"
@@ -394,9 +400,13 @@ export default function Shelf() {
               }}
               exit={{ opacity: 0 }}
             >
-              <motion.span>
-                <GiBookshelf />
-              </motion.span>
+              {screenSize.dynamicWidth > 440 ? (
+                <motion.span>
+                  <GiBookshelf />
+                </motion.span>
+              ) : (
+                ""
+              )}
               <h1>Bookshelf is empty</h1>
             </motion.div>
           </div>
