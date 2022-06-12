@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
 import { bookOnShelf } from "./shelfSlice";
 
@@ -12,10 +13,10 @@ export const ShelfView = () => {
   return (
     <div className="shelf">
       <GiBookshelf />
-      <span className="shelfCircle">
+      <motion.span className="shelfCircle" whileTap={{ scale: 0.95 }}>
         <BsFillCircleFill />
-        <div className="shelfLength">{shelf.length}</div>
-      </span>
+        <motion.div className="shelfLength">{shelf.length}</motion.div>
+      </motion.span>
     </div>
   );
 };

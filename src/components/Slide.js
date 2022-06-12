@@ -254,7 +254,25 @@ export default function Slide() {
                       className="unselectable"
                     ></img>
                     <div className="card-cont">
-                      <h3>{book.title}</h3>
+                      <h3
+                        style={{
+                          fontSize: `${
+                            book.title.length > 20
+                              ? `${
+                                  book.title.length > 25
+                                    ? `${
+                                        book.title.length > 35
+                                          ? ".75rem"
+                                          : ".85rem"
+                                      }`
+                                    : ".9rem"
+                                }`
+                              : "auto"
+                          }`,
+                        }}
+                      >
+                        {book.title}
+                      </h3>
                       <h4>
                         {stars(book.rating)}
                         {book.rating}
@@ -281,7 +299,25 @@ export default function Slide() {
                     className="unselectable"
                   ></img>
                   <div className="card-cont">
-                    <h3>{book.title}</h3>
+                    <h3
+                      style={{
+                        fontSize: `${
+                          book.title.length > 20
+                            ? `${
+                                book.title.length > 25
+                                  ? `${
+                                      book.title.length > 35
+                                        ? ".75rem"
+                                        : ".85rem"
+                                    }`
+                                  : ".9rem"
+                              }`
+                            : "auto"
+                        }`,
+                      }}
+                    >
+                      {book.title}
+                    </h3>
                     <h4>
                       {stars(book.rating)}
                       {book.rating}
@@ -295,7 +331,7 @@ export default function Slide() {
       </motion.div>
       <motion.div className="books-category">
         <div className="line"></div>
-        <Categories mode="dark" />
+        <Categories mode="dark" list={booksData.test} />
       </motion.div>
     </>
   );

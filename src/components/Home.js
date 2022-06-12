@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import "./Home.css";
 
+import EmptyHome from "./EmptyHome";
+
 import {
   BrowserRouter as Router,
   Route,
@@ -21,6 +23,7 @@ import {
 } from "react-icons/bs";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
 import { MdFavorite } from "react-icons/md";
+import { GiBookshelf } from "react-icons/gi";
 
 //store
 import {
@@ -29,15 +32,57 @@ import {
   bookOnshelf,
 } from "../features/shelf/shelfSlice";
 
+import {
+  addGenre,
+  removeGenre,
+  listOfGenre,
+} from "../features/genre/genreSlice";
+
+import { useParams } from "react-router-dom";
+
 import Slide from "./Slide";
 
 export default function Home(props) {
-  const shelf = useSelector(state => state.shelf.bookOnShelf);
+  // let testData = booksData.test;
+  let booksDataList = booksData.books; //test
+
   const dispatch = useDispatch();
+  const shelf = useSelector(state => state.shelf.bookOnShelf);
+  const listOfGenre = useSelector(state => state.genre.listOfGenre);
+  ////
+  const [testData, setTestData] = useState([]);
+  useEffect(() => {
+    // if (listOfGenre.length === 0) {
+    //   setTestData(booksDataList);
+    // } else {
+    //   setTestData([]);
+    //   booksDataList.filter((item, index) => {
+    //     item.genre.forEach(cat => {
+    //       listOfGenre.forEach(gen => {
+    //         if (gen === cat) {
+    //           setTestData(prev => [...prev, item]);
+    //         }
+    //       });
+    //     });
+    //   });
+    // }
+    // setTestData(() => [...new Set(testData)]);
 
-  let testData = booksData.test;
+    //  //  //   //
 
-  // let booksLength = 0
+    if (listOfGenre.length === 0) {
+      setTestData(booksDataList);
+    } else {
+      setTestData([]);
+      booksDataList.filter((item, index) => {
+        if (listOfGenre.every(cat => item.genre.includes(cat))) {
+          setTestData(prev => [...prev, item]);
+        }
+      });
+    }
+  }, [listOfGenre]);
+
+  ////
 
   const [booksLength, setBooksLength] = useState(20);
 
@@ -135,6 +180,60 @@ export default function Home(props) {
       setIsMobile(true);
     }
   }, []);
+
+  //// style
+  // data length in page
+  // console.log(data.length);
+
+  // grid-template-rows: repeat(4, 1fr); //5, 1fr
+
+  let rowStyle = "";
+  let columnStyle = "";
+  // if (data.length > 15) {
+  //   rowStyle = "repeat(4, 1fr)";
+  // } else if (data.length > 10 && data.length <= 15) {
+  //   rowStyle = "repeat(3, 1fr)";
+  // } else if (data.length > 5 && data.length <= 10) {
+  //   rowStyle = "repeat(2, 1fr)";
+  // } else if (data.length > 0 && data.length <= 5) {
+  //   rowStyle = "repeat(1, 1fr)";
+  // }
+
+  if (data.length > 15) {
+    columnStyle = "repeat(5, 1fr)";
+    rowStyle = "repeat(1, 1fr)"; //4, 1fr
+  } else if (data.length >= 10 && data.length <= 15) {
+    columnStyle = "repeat(4, 1fr)";
+    rowStyle = "repeat(1, 1fr)";
+  } else if (data.length > 5 && data.length <= 9) {
+    columnStyle = "repeat(4, 1fr)";
+    rowStyle = "repeat(1, 1fr)";
+  } else if (data.length > 2 && data.length <= 5) {
+    columnStyle = "repeat(3, 1fr)";
+    rowStyle = "repeat(1, 1fr)";
+  } else if (data.length > 1 && data.length <= 2) {
+    columnStyle = "repeat(2, 1fr)";
+    rowStyle = "repeat(1, 1fr)";
+  } else if (data.length === 1) {
+    columnStyle = "repeat(1, 1fr)";
+    rowStyle = "repeat(1, 1fr)";
+  }
+
+  if (screenSize.dynamicWidth < smallTableWidth) {
+    columnStyle = "repeat(2, 1fr)";
+    rowStyle = "repeat(1, 1fr)";
+
+    if (data.length === 1) {
+      columnStyle = "repeat(1, 1fr)";
+      rowStyle = "repeat(1, 1fr)";
+    }
+  }
+  let booksContainerStyle = {
+    gridTemplateRows: rowStyle,
+    gridTemplateColumns: columnStyle,
+  };
+
+  ////
 
   function stars(rate) {
     let rating = parseFloat(rate);
@@ -298,26 +397,6 @@ export default function Home(props) {
     setPrevPageLength(booksLength * currentPage);
   };
 
-  // data length in page
-  // console.log(data.length);
-
-  // grid-template-rows: repeat(4, 1fr); //5, 1fr
-
-  let rowStyle = "";
-  if (data.length > 15) {
-    rowStyle = "repeat(4, 1fr)";
-  } else if (data.length > 10 && data.length <= 15) {
-    rowStyle = "repeat(3, 1fr)";
-  } else if (data.length > 5 && data.length <= 10) {
-    rowStyle = "repeat(2, 1fr)";
-  } else if (data.length > 0 && data.length <= 5) {
-    rowStyle = "repeat(1, 1fr)";
-  }
-
-  let booksContainerStyle = {
-    gridTemplateRows: rowStyle,
-  };
-
   /////
   //fav style
 
@@ -343,100 +422,145 @@ export default function Home(props) {
       <section className="home">
         <Slide />
         <div className="main wrapper">
-          <div
-            ref={booksContainerRef}
-            className="books-container"
-            style={booksContainerStyle}
-          >
-            {data.map((book, index) => {
-              // index += 1;
+          {testData.length > 0 ? (
+            <div
+              ref={booksContainerRef}
+              className="books-container"
+              style={booksContainerStyle}
+            >
+              {data.map((book, index) => {
+                // index += 1;
 
-              // console.log(index);
-              if (index > rowLength) {
-                itemStyle = {
-                  // border: "1px solid hsl(180, 2%, 88%)",
-                };
-              }
-              if (data.length - rowLength < index) {
-                itemStyle = {
-                  // borderBottom: "1px solid white",
-                };
-              }
-              return (
-                <div
-                  onMouseEnter={itemHoverColor}
-                  onMouseLeave={itemUnHoverColor}
-                  key={index}
-                  id={`itemID${index}`}
-                  className="item"
-                  style={itemStyle}
-                  onClick={itemHoverColor}
-                >
-                  {itemOnHover &&
-                  `itemID${index < 20 ? index + 1 : index}` === itemID ? (
-                    <>
-                      <motion.div
-                        className="itemOverlay"
-                        initial={{ opacity: 0.5 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                      ></motion.div>
-                      <motion.div
-                        className="overlayContainer"
-                        initial={{ opacity: 0 }}
-                        animate={{
-                          x: 0,
-                          y: -15,
-                          opacity: 1,
-                        }}
-                        exit={{ opacity: 0 }}
-                      >
-                        <div
-                          onClick={e => {
-                            const foundItem = shelf.includes(book);
-
-                            if (!foundItem) {
-                              dispatch(addToFavorites(book));
-                            } else {
-                              dispatch(removeFromFavorites(book.id));
-                            }
-                            // console.log(book);
+                // console.log(index);
+                if (index > rowLength) {
+                  itemStyle = {
+                    // border: "1px solid hsl(180, 2%, 88%)",
+                  };
+                }
+                if (data.length - rowLength < index) {
+                  itemStyle = {
+                    // borderBottom: "1px solid white",
+                  };
+                }
+                return (
+                  <div
+                    onMouseEnter={itemHoverColor}
+                    onMouseLeave={itemUnHoverColor}
+                    key={index}
+                    id={`itemID${index}`}
+                    className="item"
+                    style={itemStyle}
+                    onClick={itemHoverColor}
+                  >
+                    {itemOnHover &&
+                    `itemID${index < 20 ? index + 1 : index}` === itemID ? (
+                      <>
+                        <motion.div
+                          className="itemOverlay"
+                          initial={{ opacity: 0.5 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                        ></motion.div>
+                        <motion.div
+                          className="overlayContainer"
+                          initial={{ opacity: 0 }}
+                          animate={{
+                            x: 0,
+                            y: -15,
+                            opacity: 1,
                           }}
-                          id={`fav${index}`}
-                          // style={favoriteStyle}
-                          style={{
-                            color: shelf.includes(book)
-                              ? "hsla(26, 90%, 56%, 1)"
-                              : "hsl(213, 16%, 14%)",
-                            cursor: "pointer",
-                          }}
+                          exit={{ opacity: 0 }}
                         >
-                          <MdFavorite />
-                        </div>
-                        <div style={{ cursor: "pointer" }}>
-                          <BsFillArrowRightCircleFill />
-                        </div>
-                      </motion.div>
-                    </>
-                  ) : (
-                    ""
-                  )}
-                  <img
-                    src={book.image}
-                    alt={book.title}
-                    className="unselectable"
-                  ></img>
-                  <div className="card-cont">
-                    <h3>{book.title}</h3>
-                    <h4>
-                      {stars(book.rating)}
-                      {book.rating}
-                    </h4>
+                          <motion.div
+                            onClick={e => {
+                              const foundItem = shelf.includes(book);
+
+                              if (!foundItem) {
+                                dispatch(addToFavorites(book));
+                              } else {
+                                dispatch(removeFromFavorites(book.id));
+                              }
+                              // console.log(book);
+                            }}
+                            id={`fav${index}`}
+                            // style={favoriteStyle}
+                            whileHover={{
+                              scale: 1.3,
+                              color: "hsla(26, 90%, 56%, 1)",
+                            }}
+                            whileTap={{ scale: 1 }}
+                            style={{
+                              color: shelf.includes(book)
+                                ? "hsla(26, 90%, 56%, 1)"
+                                : "hsl(213, 16%, 14%)",
+                              cursor: "pointer",
+                            }}
+                          >
+                            <MdFavorite />
+                          </motion.div>
+                          <motion.div
+                            whileHover={{
+                              scale: 1.3,
+                              color: "hsla(26, 90%, 56%, 1)",
+                            }}
+                            whileTap={{ scale: 1 }}
+                            style={{ cursor: "pointer" }}
+                          >
+                            <BsFillArrowRightCircleFill />
+                          </motion.div>
+                        </motion.div>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                    <img
+                      src={book.image}
+                      alt={book.title}
+                      style={{
+                        width:
+                          screenSize.dynamicWidth < 390
+                            ? data.length === 1
+                              ? "11rem"
+                              : "90%"
+                            : screenSize.dynamicWidth < mobileWidth &&
+                              data.length === 1
+                            ? "11rem"
+                            : "11rem",
+                      }}
+                      className="unselectable"
+                    ></img>
+                    <div className="card-cont">
+                      <h3
+                        style={{
+                          fontSize: `${
+                            book.title.length > 20
+                              ? `${
+                                  book.title.length > 25
+                                    ? `${
+                                        book.title.length > 35
+                                          ? ".75rem"
+                                          : ".85rem"
+                                      }`
+                                    : ".9rem"
+                                }`
+                              : "auto"
+                          }`,
+                        }}
+                      >
+                        {book.title}
+                      </h3>
+                      <h4>
+                        {stars(book.rating)}
+                        {book.rating}
+                      </h4>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          ) : (
+            <EmptyHome />
+          )}
 
           {testData.length > 20 ? ( //data.length > 20
             <div className="pagination wrapper unselectable">

@@ -11,6 +11,7 @@
 }
 
 .home {
+  min-height: 88vh;
   height: auto;
   display: flex;
   align-items: center;
@@ -59,6 +60,11 @@
   width: 11rem;
   height: 70%;
   pointer-events: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: hsl(213deg, 16%, 14%);
 }
 .inner-carousel .item .card-cont {
   text-align: center;
@@ -199,6 +205,11 @@
   width: 11rem;
   height: 70%;
   pointer-events: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: hsl(213deg, 16%, 14%);
 }
 .main .item .card-cont {
   text-align: center;
@@ -234,6 +245,53 @@
   color: hsl(26deg, 96%, 56%);
   font-size: 1rem;
 }
+.main .emptyHome {
+  min-height: 49vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main .emptyHome .shelfStyle {
+  width: 50%;
+  padding: 0.75rem 3.25rem;
+  border-radius: 2.5rem;
+  background-color: rgb(224, 225, 225);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.main .emptyHome .emptyTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main .emptyHome .emptyCategories {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(213deg, 16%, 14%);
+  border-radius: 1rem;
+  color: rgb(224, 225, 225);
+}
+.main .emptyHome p {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.main .emptyHome h1 {
+  font-size: 2rem;
+  text-align: center;
+}
+.main .emptyHome span {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+}
 
 .line {
   display: inline-flex;
@@ -260,6 +318,7 @@
   cursor: -webkit-grab;
   cursor: grab;
   background-color: rgb(224, 225, 225);
+  background-color: hsl(213deg, 16%, 14%);
   width: min(100%, 70rem);
   height: 2rem;
   overflow: hidden;
@@ -616,10 +675,27 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(6, 1fr);
   }
+  .main .emptyHome .shelfStyle {
+    width: 65%;
+  }
+  .main .emptyHome .emptyTitle {
+    width: 100%;
+  }
 }
 @media screen and (max-width: 580px) {
   .main .item img {
     width: 80%;
+  }
+  .main .emptyHome .shelfStyle {
+    width: 80%;
+    padding: 0.75rem 0.75rem;
+    border-radius: 2.5rem;
+  }
+  .main .emptyHome .emptyTitle {
+    width: 100%;
+  }
+  .main .emptyHome h1 {
+    font-size: 2rem;
   }
 
   .emptyShelf h1 {
@@ -659,6 +735,14 @@
   }
   .main .item .card-cont {
     width: 90%;
+  }
+  .main .emptyHome .shelfStyle {
+    width: 80%;
+    padding: 0rem;
+    border-radius: 2rem;
+  }
+  .main .emptyHome h1 {
+    font-size: 1.75rem;
   }
 }
 @media screen and (max-width: 400px) {

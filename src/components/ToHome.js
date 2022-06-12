@@ -1,13 +1,18 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
 
 import { BiArrowBack } from "react-icons/bi";
 
+import { clearGenre } from "../features/genre/genreSlice";
+import { currentPath, newPath } from "../features/path/pathSlice";
+
 import "./Home.css";
 
 export default function ToHome() {
+  const dispatch = useDispatch();
   return (
     <motion.div
       className="toHome"
@@ -25,7 +30,13 @@ export default function ToHome() {
       }}
       exit={{ opacity: 0 }}
     >
-      <Link to="/">
+      <Link
+        to="/"
+        onClick={() => {
+          dispatch(clearGenre());
+          dispatch(newPath("/"));
+        }}
+      >
         <h2>
           <BiArrowBack />
           {/* <span>Home</span> */}

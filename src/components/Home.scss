@@ -26,7 +26,9 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
 }
 .home {
   // height: calc(100vh - (8vh + 4vh)); //100vh - (header + footer)
+  min-height: calc(100vh - (4vh + 8vh));
   height: auto;
+
   //   width: 100%;
   display: flex;
   //   justify-content: center;
@@ -82,6 +84,12 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
       width: 11rem;
       height: 70%;
       pointer-events: none;
+
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: $bgClr;
     }
     .card-cont {
       text-align: center;
@@ -246,6 +254,12 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
       width: 11rem;
       height: 70%;
       pointer-events: none;
+
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: $bgClr;
     }
     .card-cont {
       text-align: center;
@@ -283,6 +297,62 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
       }
     }
   }
+
+  .emptyHome {
+    min-height: calc(49vh);
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .shelfStyle {
+      width: 50%;
+      // height: 20%;
+      padding: 0.75rem 3.25rem;
+      border-radius: 2.5rem;
+      background-color: $primaryClr;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .emptyTitle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .emptyCategories {
+      width: 90%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      // flex-wrap: wrap;
+
+      background-color: $bgClr;
+      border-radius: 1rem;
+      color: $primaryClr;
+    }
+    p {
+      // border-right: 1px solid white;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      // background-color: red;
+    }
+    h1 {
+      font-size: 2rem;
+      text-align: center;
+    }
+    span {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      // color: $secondaryClr;
+      font-size: 3rem;
+    }
+  }
 }
 // line
 
@@ -318,7 +388,9 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
   position: relative;
   cursor: grab;
   background-color: $primaryClr;
+  background-color: $bgClr;
   width: min(100%, 70rem);
+  // width: fit-content;
   height: 2rem;
   // cursor: grab;
   overflow: hidden;
@@ -777,6 +849,14 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
       grid-template-columns: repeat(3, 1fr); //4, 1fr
       grid-template-rows: repeat(6, 1fr); //5, 1fr
     }
+    .emptyHome {
+      .shelfStyle {
+        width: 65%;
+      }
+      .emptyTitle {
+        width: 100%;
+      }
+    }
   }
 }
 
@@ -785,6 +865,20 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
     .item {
       img {
         width: 80%;
+      }
+    }
+    .emptyHome {
+      .shelfStyle {
+        width: 80%;
+        // height: 20%;
+        padding: 0.75rem 0.75rem;
+        border-radius: 2.5rem;
+      }
+      .emptyTitle {
+        width: 100%;
+      }
+      h1 {
+        font-size: 2rem;
       }
     }
   }
@@ -846,6 +940,17 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
       }
       .card-cont {
         width: 90%;
+      }
+    }
+    .emptyHome {
+      .shelfStyle {
+        width: 80%;
+        // height: 20%;
+        padding: 0rem;
+        border-radius: 2rem;
+      }
+      h1 {
+        font-size: 1.75rem;
       }
     }
   }
