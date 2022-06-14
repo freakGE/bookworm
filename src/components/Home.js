@@ -43,7 +43,6 @@ import { useParams } from "react-router-dom";
 import Slide from "./Slide";
 
 export default function Home(props) {
-  // let testData = booksData.test;
   let booksDataList = booksData.books; //test
 
   const dispatch = useDispatch();
@@ -52,30 +51,18 @@ export default function Home(props) {
   ////
   const [testData, setTestData] = useState([]);
   useEffect(() => {
-    // if (listOfGenre.length === 0) {
-    //   setTestData(booksDataList);
-    // } else {
-    //   setTestData([]);
-    //   booksDataList.filter((item, index) => {
-    //     item.genre.forEach(cat => {
-    //       listOfGenre.forEach(gen => {
-    //         if (gen === cat) {
-    //           setTestData(prev => [...prev, item]);
-    //         }
-    //       });
-    //     });
-    //   });
-    // }
-    // setTestData(() => [...new Set(testData)]);
-
-    //  //  //   //
-
     if (listOfGenre.length === 0) {
       setTestData(booksDataList);
     } else {
       setTestData([]);
       booksDataList.filter((item, index) => {
-        if (listOfGenre.every(cat => item.genre.includes(cat))) {
+        //every > strict
+        // if (listOfGenre.every(cat => item.genre.includes(cat))) {
+        //   setTestData(prev => [...prev, item]);
+        // }
+
+        //some
+        if (listOfGenre.some(cat => item.genre.includes(cat))) {
           setTestData(prev => [...prev, item]);
         }
       });

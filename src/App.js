@@ -175,6 +175,7 @@ function App() {
               path={`/categories/(${booksCategories.map(cat => cat).join("|")})`}
               element={<Home category={booksCategories} />}
             /> */}
+            {/* <Route path="/categories=:categoryId" element={<Home />}></Route> */}
             <Route path="/page/:pageid" element={<Home />}></Route>
           </Routes>
 

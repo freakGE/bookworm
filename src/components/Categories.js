@@ -16,10 +16,35 @@ import {
   removeGenre,
   listOfGenre,
 } from "../features/genre/genreSlice";
+import { useSearchParams, Link } from "react-router-dom";
 
 export default function Slide(props) {
   const dispatch = useDispatch();
+  const listOfGenre = useSelector(state => state.genre.listOfGenre);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const showCategories = searchParams.get("category");
+
+  useEffect(() => {
+    if (listOfGenre.length > 0) {
+      setSearchParams({ category: listOfGenre.join(" ") });
+    } else {
+      setSearchParams({});
+    }
+  }, [listOfGenre]);
+
+  useEffect(() => {
+    // console.log(showCategories.split(" "));
+    if (showCategories != null && showCategories.length > 0) {
+      let urlCategories = showCategories.split(" ");
+
+      urlCategories.forEach(cat => {
+        dispatch(addGenre(cat));
+        // categorySelection();
+      });
+      // dispatch(addGenre(e.target.textContent));
+    }
+  }, [showCategories]);
   ////
   //  Not changing on Unfavoriting // v1
   // const [data, setData] = useState(props.list);
@@ -132,8 +157,6 @@ export default function Slide(props) {
     backgroundColor:
       mode === "dark" ? "hsl(213, 16%, 14%)" : "hsl(180, 2%, 88%)",
     color: mode === "dark" ? "hsl(180, 2%, 88%)" : "hsl(213, 16%, 14%)",
-    // backgroundColor: genreHover ? "hsl(180, 2%, 94%)" : "hsl(180, 2%, 88%)",
-    // border-right: 1px solid hsla(180, 2%, 88%, 0.3);
 
     borderRight:
       mode === "dark"
@@ -141,26 +164,70 @@ export default function Slide(props) {
         : "1px solid hsla(213, 16%, 14%, 0.3)",
   };
 
+  // const categorySelection = e => {
+  //   if (
+  //     e.target.style.backgroundColor === "rgb(251, 128, 35)" ||
+  //     e.target.style.backgroundColor === "hsl(26, 90%, 56%)" ||
+  //     e.target.style.backgroundColor === "rgb(244, 129, 42)"
+  //   ) {
+  //     // e.target.style.backgroundColor = "hsl(180, 2%, 88%)";
+  //     if (mode === "dark") {
+  //       e.target.style.backgroundColor = "hsl(213, 16%, 14%)";
+  //       e.target.style.color = "hsl(180, 2%, 88%)";
+  //     } else if (mode === "light") {
+  //       e.target.style.backgroundColor = "hsl(180, 2%, 88%)";
+  //       e.target.style.color = "hsl(213, 16%, 14%)";
+  //     }
+  //     dispatch(removeGenre(e.target.textContent));
+  //   } else {
+  //     e.target.style.backgroundColor = "hsl(26, 96%, 56%)"; //hsl(26, 96%, 56%)
+  //     e.target.style.color = "hsl(213, 16%, 14%)";
+  //     dispatch(addGenre(e.target.textContent));
+  //   }
+  //   setCategorySelected(prev => !prev);
+  //   setOnHoverEffect(prev => !prev);
+  // };
+
   const categorySelection = e => {
-    if (
-      e.target.style.backgroundColor === "rgb(251, 128, 35)" ||
-      e.target.style.backgroundColor === "hsl(26, 90%, 56%)" ||
-      e.target.style.backgroundColor === "rgb(244, 129, 42)"
-    ) {
-      // e.target.style.backgroundColor = "hsl(180, 2%, 88%)";
-      if (mode === "dark") {
-        e.target.style.backgroundColor = "hsl(213, 16%, 14%)";
-        e.target.style.color = "hsl(180, 2%, 88%)";
-      } else if (mode === "light") {
-        e.target.style.backgroundColor = "hsl(180, 2%, 88%)";
-        e.target.style.color = "hsl(213, 16%, 14%)";
-      }
+    // if (
+    //   e.target.style.backgroundColor === "rgb(251, 128, 35)" ||
+    //   e.target.style.backgroundColor === "hsl(26, 90%, 56%)" ||
+    //   e.target.style.backgroundColor === "rgb(244, 129, 42)"
+    // ) {
+    //   // e.target.style.backgroundColor = "hsl(180, 2%, 88%)";
+    //   if (mode === "dark") {
+    //     e.target.style.backgroundColor = "hsl(213, 16%, 14%)";
+    //     e.target.style.color = "hsl(180, 2%, 88%)";
+    //   } else if (mode === "light") {
+    //     e.target.style.backgroundColor = "hsl(180, 2%, 88%)";
+    //     e.target.style.color = "hsl(213, 16%, 14%)";
+    //   }
+    //   dispatch(removeGenre(e.target.textContent));
+    // } else {
+    //   e.target.style.backgroundColor = "hsl(26, 96%, 56%)"; //hsl(26, 96%, 56%)
+    //   e.target.style.color = "hsl(213, 16%, 14%)";
+    //   dispatch(addGenre(e.target.textContent));
+    // }
+
+    if (listOfGenre.includes(e.target.textContent)) {
       dispatch(removeGenre(e.target.textContent));
     } else {
-      e.target.style.backgroundColor = "hsl(26, 96%, 56%)"; //hsl(26, 96%, 56%)
-      e.target.style.color = "hsl(213, 16%, 14%)";
       dispatch(addGenre(e.target.textContent));
     }
+
+    // if (listOfGenre.includes(e.target.textContent)) {
+    //   if (mode === "dark") {
+    //     e.target.style.backgroundColor = "hsl(213, 16%, 14%)";
+    //     e.target.style.color = "hsl(180, 2%, 88%)";
+    //   } else if (mode === "light") {
+    //     e.target.style.backgroundColor = "hsl(180, 2%, 88%)";
+    //     e.target.style.color = "hsl(213, 16%, 14%)";
+    //   }
+    // } else {
+    //   e.target.style.backgroundColor = "hsl(26, 96%, 56%)";
+    //   e.target.style.color = "hsl(213, 16%, 14%)";
+    // }
+
     setCategorySelected(prev => !prev);
     setOnHoverEffect(prev => !prev);
   };
@@ -248,22 +315,44 @@ export default function Slide(props) {
       >
         {genres.map((book, index) => {
           index += 1;
-          return (
-            <motion.button
-              className="genre"
-              key={index}
-              id={index}
-              style={categoryStyle}
-              onClick={categorySelection}
-              //   onMouseEnter={() => setGenreHover(true)}
-              //   onMouseLeave={() => setGenreHover(false)}
-              onMouseEnter={genreHoverColor}
-              onMouseLeave={genreUnHoverColor}
-              ref={genre}
-            >
-              {book}
-            </motion.button>
-          );
+          if (listOfGenre.includes(book)) {
+            return (
+              <motion.button
+                className="genre"
+                key={index}
+                id={index}
+                style={{
+                  backgroundColor: "hsl(26, 90%, 56%)",
+                  color: "hsl(213, 16%, 14%)",
+                  borderRight:
+                    mode === "dark"
+                      ? "1px solid hsla(180, 2%, 88%, 0.3)"
+                      : "1px solid hsla(213, 16%, 14%, 0.3)",
+                }}
+                onClick={categorySelection}
+                onMouseEnter={genreHoverColor}
+                onMouseLeave={genreUnHoverColor}
+                ref={genre}
+              >
+                {book}
+              </motion.button>
+            );
+          } else {
+            return (
+              <motion.button
+                className="genre"
+                key={index}
+                id={index}
+                style={categoryStyle}
+                onClick={categorySelection}
+                onMouseEnter={genreHoverColor}
+                onMouseLeave={genreUnHoverColor}
+                ref={genre}
+              >
+                {book}
+              </motion.button>
+            );
+          }
         })}
       </motion.div>
       {carouselScrollWidth > clientWidth ? (

@@ -25,7 +25,7 @@ import {
   bookOnshelf,
 } from "../features/shelf/shelfSlice";
 
-import { listOfGenre } from "../features/genre/genreSlice";
+import { clearGenre, listOfGenre } from "../features/genre/genreSlice";
 
 import "./Home.css";
 
@@ -44,17 +44,27 @@ export default function Shelf() {
   const [data, setData] = useState([]);
   const [testData, setTestData] = useState([]);
 
-  useEffect(() => {
+  const updateBookshelf = () => {
     if (listOfGenre.length === 0) {
       setData(shelf);
     } else {
       setData([]);
       shelf.filter((item, index) => {
-        if (listOfGenre.every(cat => item.genre.includes(cat))) {
+        //every > Strict
+        // if (listOfGenre.every(cat => item.genre.includes(cat))) {
+        //   setData(prev => [...prev, item]);
+        // }
+
+        //some
+        if (listOfGenre.some(cat => item.genre.includes(cat))) {
           setData(prev => [...prev, item]);
         }
       });
     }
+  };
+
+  useEffect(() => {
+    updateBookshelf();
   }, [listOfGenre, shelf]);
   ////
   const [itemOnHover, setItemOnHover] = useState(false);
@@ -356,6 +366,14 @@ export default function Shelf() {
                                     dispatch(addToFavorites(book));
                                   } else {
                                     dispatch(removeFromFavorites(book.id));
+                                    // dispatch(clearGenre());
+                                    shelf.forEach(element => {
+                                      listOfGenre.forEach(gen => {
+                                        if (!element.genre.includes(gen)) {
+                                          dispatch(clearGenre());
+                                        }
+                                      });
+                                    });
                                   }
                                   // console.log(book);
                                 }}

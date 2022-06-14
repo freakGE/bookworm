@@ -52,7 +52,6 @@ export default function EmptyHome() {
         {listOfGenre.length < 5 && screenSize.dynamicWidth >= tabletWidth ? (
           <div className="emptyCategories">
             {listOfGenre.map((gen, index) => {
-              console.log(listOfGenre.length);
               let genWidth = 100 / listOfGenre.length + 1;
               let genStyle = {
                 borderRight: "1px solid white",
