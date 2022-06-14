@@ -253,19 +253,29 @@
   align-items: center;
 }
 .main .emptyHome .shelfStyle {
-  width: 50%;
-  padding: 0.75rem 3.25rem;
+  width: min(50%, 452px);
   border-radius: 2.5rem;
-  background-color: rgb(224, 225, 225);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 .main .emptyHome .emptyTitle {
+  padding: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+.main .emptyHome .emptyTitle h1 {
+  margin: 0;
+  padding: 0;
+}
+.main .emptyHome .emptyTitle p {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
 }
 .main .emptyHome .emptyCategories {
   width: 90%;
@@ -283,7 +293,7 @@
   text-align: center;
 }
 .main .emptyHome h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   text-align: center;
 }
 .main .emptyHome span {
@@ -649,6 +659,19 @@
 .toHome a:focus {
   color: hsl(26deg, 90%, 53%);
 }
+.toHome button {
+  border: none;
+  color: rgb(224, 225, 225);
+  background-color: hsl(213deg, 16%, 14%);
+  font-weight: bolder;
+  font-size: 1.25rem;
+}
+.toHome button:hover {
+  color: hsl(26deg, 90%, 56%);
+}
+.toHome button:focus {
+  color: hsl(26deg, 90%, 53%);
+}
 .toHome h2 {
   padding: 0;
   margin: 8px;
@@ -658,6 +681,36 @@
 }
 .toHome span {
   font-size: 1.5rem;
+}
+
+.pageNotAvailable {
+  min-height: 88vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+.pageNotAvailable span {
+  font-size: 4rem;
+  margin: 0;
+  padding: 0;
+}
+.pageNotAvailable span svg {
+  margin: 0;
+  padding: 0;
+}
+.pageNotAvailable h3 {
+  margin: 0;
+  padding-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+.pageNotAvailable p {
+  margin: 0;
+  padding: 0;
+  font-size: 1.1rem;
+  width: min(452px, 90%);
 }
 
 @media screen and (max-width: 930px) {

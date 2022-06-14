@@ -2,16 +2,18 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { BiArrowBack } from "react-icons/bi";
 
 import { clearGenre } from "../features/genre/genreSlice";
 import { currentPath, newPath } from "../features/path/pathSlice";
+import { clearSearch } from "../features/search/searchSlice";
 
 import "./Home.css";
 
 export default function ToHome() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   return (
     <motion.div
@@ -34,14 +36,25 @@ export default function ToHome() {
         to="/"
         onClick={() => {
           dispatch(clearGenre());
+          dispatch(clearSearch());
           dispatch(newPath("/"));
         }}
       >
         <h2>
           <BiArrowBack />
-          {/* <span>Home</span> */}
         </h2>
       </Link>
+      {/* <button
+        onClick={() => {
+          dispatch(clearGenre());
+          // dispatch(newPath("/"));
+          navigate(-1);
+        }}
+      >
+        <h2>
+          <BiArrowBack />
+        </h2>
+      </button> */}
     </motion.div>
   );
 }

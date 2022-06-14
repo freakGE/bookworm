@@ -11,6 +11,7 @@ import {
   Link,
   Routes,
   Switch,
+  useSearchParams,
 } from "react-router-dom";
 
 import booksData from "../booksData.json";
@@ -38,6 +39,12 @@ import {
   listOfGenre,
 } from "../features/genre/genreSlice";
 
+import {
+  newSearch,
+  clearSearch,
+  currentSearch,
+} from "../features/search/searchSlice";
+
 import { useParams } from "react-router-dom";
 
 import Slide from "./Slide";
@@ -45,11 +52,49 @@ import Slide from "./Slide";
 export default function Home(props) {
   let booksDataList = booksData.books; //test
 
+  ////
+  const currentSearch = useSelector(state => state.search.currentSearch);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const showQuestions = searchParams.get("q");
+
+  useEffect(() => {
+    if (currentSearch.length > 0) {
+      setSearchParams({ q: currentSearch });
+    } else {
+      setSearchParams({});
+    }
+  }, [currentSearch]);
+
+  useEffect(() => {
+    if (showQuestions != null && showQuestions.length > 0) {
+      dispatch(newSearch(showQuestions));
+    }
+  }, [showQuestions]);
+
+  useEffect(() => {
+    if (currentSearch.length === 0) {
+      setTestData(booksDataList);
+    } else {
+      setTestData([]);
+      booksDataList.filter((item, index) => {
+        if (
+          item.title.toLowerCase().includes(currentSearch.toLowerCase()) ||
+          item.author.toLowerCase().includes(currentSearch.toLowerCase()) ||
+          item.description.toLowerCase().includes(currentSearch.toLowerCase())
+        ) {
+          setTestData(prev => [...prev, item]);
+        }
+      });
+    }
+  }, [currentSearch]);
+  ////
+
   const dispatch = useDispatch();
   const shelf = useSelector(state => state.shelf.bookOnShelf);
   const listOfGenre = useSelector(state => state.genre.listOfGenre);
   ////
   const [testData, setTestData] = useState([]);
+
   useEffect(() => {
     if (listOfGenre.length === 0) {
       setTestData(booksDataList);

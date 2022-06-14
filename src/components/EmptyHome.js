@@ -3,8 +3,10 @@ import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 
 import { listOfGenre } from "../features/genre/genreSlice";
+import { currentSearch } from "../features/search/searchSlice";
 
 export default function EmptyHome() {
+  const currentSearch = useSelector(state => state.search.currentSearch);
   const listOfGenre = useSelector(state => state.genre.listOfGenre);
 
   let tabletWidth = 930;
@@ -47,7 +49,8 @@ export default function EmptyHome() {
         exit={{ opacity: 0, y: -250, x: 0 }}
       >
         <div className="emptyTitle">
-          <h1>Books in those categories are not found!</h1>
+          <h1>No results for "{currentSearch}"</h1>
+          <p>Try checking your spelling or use more general terms</p>
         </div>
         {listOfGenre.length < 5 && screenSize.dynamicWidth >= tabletWidth ? (
           <div className="emptyCategories">

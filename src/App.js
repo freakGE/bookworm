@@ -17,6 +17,7 @@ import MetaTags from "./components/MetaTags";
 import Home from "./components/Home";
 import Shelf from "./components/Shelf";
 import Footer from "./components/Footer";
+import { PageNotAvailable } from "./components/PageNotAvailable";
 
 import { AiOutlineSearch } from "react-icons/ai";
 import { GiBookshelf } from "react-icons/gi";
@@ -25,9 +26,15 @@ import { GiBookshelf } from "react-icons/gi";
 import { ShelfView } from "./features/shelf/ShelfView";
 import { clearGenre } from "./features/genre/genreSlice";
 import { currentPath, newPath } from "./features/path/pathSlice";
+import {
+  newSearch,
+  clearSearch,
+  currentSearch,
+} from "./features/search/searchSlice";
 
 function App() {
   const currentPath = useSelector(state => state.path.currentPath);
+  const currentSearch = useSelector(state => state.search.currentSearch);
 
   const dispatch = useDispatch();
   const [screenSize, getDimension] = useState({
@@ -65,6 +72,7 @@ function App() {
     if (screenSize.dynamicWidth <= 600) {
       setSearching(false);
     }
+    dispatch(newSearch(book));
   };
 
   const handleChange = e => {
@@ -82,17 +90,19 @@ function App() {
                 <Link
                   to="/"
                   onClick={() => {
-                    if (currentPath !== "/") {
-                      dispatch(clearGenre());
-                      dispatch(newPath("/"));
-                    }
+                    // if (currentPath !== "/") {
+                    //   dispatch(clearGenre());
+                    //   dispatch(newPath("/"));
+                    // }
+                    dispatch(clearGenre());
+                    dispatch(clearSearch());
+                    dispatch(newPath("/"));
                   }}
                 >
                   <h2>
                     book<span>Worm</span>
                   </h2>
                 </Link>
-
                 <form onSubmit={handleSubmit}>
                   <label htmlFor="book"></label>
                   <input
@@ -104,8 +114,13 @@ function App() {
                     <AiOutlineSearch />
                   </button>
                 </form>
-
-                <Link to="/shelf" onClick={() => dispatch(clearGenre())}>
+                <Link
+                  to="/shelf"
+                  onClick={() => {
+                    dispatch(clearSearch());
+                    dispatch(clearGenre());
+                  }}
+                >
                   <ShelfView />
                 </Link>
               </div>
@@ -140,10 +155,15 @@ function App() {
                     <Link
                       to="/"
                       onClick={() => {
-                        if (currentPath !== "/") {
-                          dispatch(clearGenre());
-                          dispatch(newPath("/"));
-                        }
+                        // if (currentPath !== "/") {
+                        //   dispatch(clearSearch());
+                        //   dispatch(clearGenre());
+                        //   dispatch(newPath("/"));
+                        // }
+
+                        dispatch(clearSearch());
+                        dispatch(clearGenre());
+                        dispatch(newPath("/"));
                       }}
                     >
                       <h2>
@@ -156,10 +176,13 @@ function App() {
                 <Link
                   to="/shelf"
                   onClick={() => {
-                    if (currentPath !== "/shelf") {
-                      dispatch(clearGenre());
-                      dispatch(newPath("/shelf"));
-                    }
+                    // if (currentPath !== "/shelf") {
+                    //   dispatch(clearGenre());
+                    //   dispatch(newPath("/shelf"));
+                    // }
+                    dispatch(newPath("/shelf"));
+                    dispatch(clearGenre());
+                    dispatch(clearSearch());
                   }}
                 >
                   <ShelfView />
@@ -171,12 +194,8 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home />}></Route>
             <Route path="/shelf" element={<Shelf />}></Route>
-            {/* <Route
-              path={`/categories/(${booksCategories.map(cat => cat).join("|")})`}
-              element={<Home category={booksCategories} />}
-            /> */}
-            {/* <Route path="/categories=:categoryId" element={<Home />}></Route> */}
-            <Route path="/page/:pageid" element={<Home />}></Route>
+            {/* <Route path="/page/:pageid" element={<Home />}></Route> */}
+            <Route path="*" element={<PageNotAvailable />}></Route>
           </Routes>
 
           <Footer />

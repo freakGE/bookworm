@@ -20,6 +20,8 @@ import { useSearchParams, Link } from "react-router-dom";
 
 export default function Slide(props) {
   const dispatch = useDispatch();
+
+  //// search logic
   const listOfGenre = useSelector(state => state.genre.listOfGenre);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -40,9 +42,7 @@ export default function Slide(props) {
 
       urlCategories.forEach(cat => {
         dispatch(addGenre(cat));
-        // categorySelection();
       });
-      // dispatch(addGenre(e.target.textContent));
     }
   }, [showCategories]);
   ////
@@ -164,51 +164,7 @@ export default function Slide(props) {
         : "1px solid hsla(213, 16%, 14%, 0.3)",
   };
 
-  // const categorySelection = e => {
-  //   if (
-  //     e.target.style.backgroundColor === "rgb(251, 128, 35)" ||
-  //     e.target.style.backgroundColor === "hsl(26, 90%, 56%)" ||
-  //     e.target.style.backgroundColor === "rgb(244, 129, 42)"
-  //   ) {
-  //     // e.target.style.backgroundColor = "hsl(180, 2%, 88%)";
-  //     if (mode === "dark") {
-  //       e.target.style.backgroundColor = "hsl(213, 16%, 14%)";
-  //       e.target.style.color = "hsl(180, 2%, 88%)";
-  //     } else if (mode === "light") {
-  //       e.target.style.backgroundColor = "hsl(180, 2%, 88%)";
-  //       e.target.style.color = "hsl(213, 16%, 14%)";
-  //     }
-  //     dispatch(removeGenre(e.target.textContent));
-  //   } else {
-  //     e.target.style.backgroundColor = "hsl(26, 96%, 56%)"; //hsl(26, 96%, 56%)
-  //     e.target.style.color = "hsl(213, 16%, 14%)";
-  //     dispatch(addGenre(e.target.textContent));
-  //   }
-  //   setCategorySelected(prev => !prev);
-  //   setOnHoverEffect(prev => !prev);
-  // };
-
   const categorySelection = e => {
-    // if (
-    //   e.target.style.backgroundColor === "rgb(251, 128, 35)" ||
-    //   e.target.style.backgroundColor === "hsl(26, 90%, 56%)" ||
-    //   e.target.style.backgroundColor === "rgb(244, 129, 42)"
-    // ) {
-    //   // e.target.style.backgroundColor = "hsl(180, 2%, 88%)";
-    //   if (mode === "dark") {
-    //     e.target.style.backgroundColor = "hsl(213, 16%, 14%)";
-    //     e.target.style.color = "hsl(180, 2%, 88%)";
-    //   } else if (mode === "light") {
-    //     e.target.style.backgroundColor = "hsl(180, 2%, 88%)";
-    //     e.target.style.color = "hsl(213, 16%, 14%)";
-    //   }
-    //   dispatch(removeGenre(e.target.textContent));
-    // } else {
-    //   e.target.style.backgroundColor = "hsl(26, 96%, 56%)"; //hsl(26, 96%, 56%)
-    //   e.target.style.color = "hsl(213, 16%, 14%)";
-    //   dispatch(addGenre(e.target.textContent));
-    // }
-
     if (listOfGenre.includes(e.target.textContent)) {
       dispatch(removeGenre(e.target.textContent));
     } else {

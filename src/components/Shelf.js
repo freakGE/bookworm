@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 
 import booksData from "../booksData.json";
 import Categories from "./Categories";
@@ -26,6 +27,12 @@ import {
 } from "../features/shelf/shelfSlice";
 
 import { clearGenre, listOfGenre } from "../features/genre/genreSlice";
+
+import {
+  newSearch,
+  clearSearch,
+  currentSearch,
+} from "../features/search/searchSlice";
 
 import "./Home.css";
 
@@ -69,6 +76,44 @@ export default function Shelf() {
   ////
   const [itemOnHover, setItemOnHover] = useState(false);
   const [itemID, setItemID] = useState("");
+
+  //// search logic
+  const currentSearch = useSelector(state => state.search.currentSearch);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const showQuestions = searchParams.get("q");
+
+  useEffect(() => {
+    if (currentSearch.length > 0) {
+      setSearchParams({ q: currentSearch });
+    } else {
+      setSearchParams({});
+    }
+  }, [currentSearch]);
+
+  useEffect(() => {
+    if (showQuestions != null && showQuestions.length > 0) {
+      dispatch(newSearch(showQuestions));
+    }
+  }, [showQuestions]);
+
+  useEffect(() => {
+    if (currentSearch.length === 0) {
+      setData(shelf);
+    } else {
+      setData([]);
+      shelf.filter((item, index) => {
+        if (
+          item.title.toLowerCase().includes(currentSearch.toLowerCase()) ||
+          item.author.toLowerCase().includes(currentSearch.toLowerCase()) ||
+          item.description.toLowerCase().includes(currentSearch.toLowerCase())
+        ) {
+          setData(prev => [...prev, item]);
+        }
+      });
+    }
+  }, [currentSearch]);
+
+  ////
 
   let itemStyle = {
     // borderTop: "1px solid white",
