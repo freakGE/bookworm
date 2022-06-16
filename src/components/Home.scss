@@ -62,6 +62,8 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
   // cursor: grab;
   display: flex;
   justify-content: space-between;
+  // justify-content: space-evenly;
+
   // padding: 0 2rem;
   // width: 90%;
   align-items: center;
@@ -79,11 +81,12 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
     min-width: 15rem;
     height: 90%;
     img {
+      cursor: pointer;
       border: 2px solid $bgClr;
       border-radius: 0.5rem;
       width: 11rem;
       height: 70%;
-      pointer-events: none;
+      pointer-events: visible;
 
       display: inline-flex;
       justify-content: center;

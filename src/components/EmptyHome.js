@@ -52,7 +52,7 @@ export default function EmptyHome() {
           <h1>No results for "{currentSearch}"</h1>
           <p>Try checking your spelling or use more general terms</p>
         </div>
-        {listOfGenre.length < 5 && screenSize.dynamicWidth >= tabletWidth ? (
+        {/* {listOfGenre.length < 5 && screenSize.dynamicWidth >= tabletWidth ? (
           <div className="emptyCategories">
             {listOfGenre.map((gen, index) => {
               let genWidth = 100 / listOfGenre.length + 1;
@@ -85,8 +85,7 @@ export default function EmptyHome() {
             })}
           </div>
         ) : (
-          ""
-        )}
+        "" )} */}
       </motion.div>
     </div>
   );

@@ -8,6 +8,7 @@ import {
   Link,
   Routes,
   Switch,
+  useLocation,
 } from "react-router-dom";
 
 import "./App.css";
@@ -25,18 +26,28 @@ import { GiBookshelf } from "react-icons/gi";
 //store
 import { ShelfView } from "./features/shelf/ShelfView";
 import { clearGenre } from "./features/genre/genreSlice";
-import { currentPath, newPath } from "./features/path/pathSlice";
+import {
+  currentPath,
+  newPath,
+  prevPath,
+  savePath,
+} from "./features/path/pathSlice";
 import {
   newSearch,
   clearSearch,
   currentSearch,
 } from "./features/search/searchSlice";
 
+import { BookView } from "./features/book/BookView";
+import { removeBook } from "./features/book/bookSlice";
+
 function App() {
+  const prevPath = useSelector(state => state.path.prevPath);
   const currentPath = useSelector(state => state.path.currentPath);
   const currentSearch = useSelector(state => state.search.currentSearch);
 
   const dispatch = useDispatch();
+
   const [screenSize, getDimension] = useState({
     dynamicWidth: window.innerWidth,
     dynamicHeight: window.innerHeight,
@@ -96,6 +107,7 @@ function App() {
                     // }
                     dispatch(clearGenre());
                     dispatch(clearSearch());
+                    dispatch(removeBook());
                     dispatch(newPath("/"));
                   }}
                 >
@@ -117,6 +129,7 @@ function App() {
                 <Link
                   to="/shelf"
                   onClick={() => {
+                    dispatch(removeBook());
                     dispatch(clearSearch());
                     dispatch(clearGenre());
                   }}
@@ -160,7 +173,7 @@ function App() {
                         //   dispatch(clearGenre());
                         //   dispatch(newPath("/"));
                         // }
-
+                        dispatch(removeBook());
                         dispatch(clearSearch());
                         dispatch(clearGenre());
                         dispatch(newPath("/"));
@@ -180,6 +193,7 @@ function App() {
                     //   dispatch(clearGenre());
                     //   dispatch(newPath("/shelf"));
                     // }
+                    dispatch(removeBook());
                     dispatch(newPath("/shelf"));
                     dispatch(clearGenre());
                     dispatch(clearSearch());
@@ -193,8 +207,9 @@ function App() {
 
           <Routes>
             <Route exact path="/" element={<Home />}></Route>
-            <Route path="/shelf" element={<Shelf />}></Route>
+            <Route path="shelf" element={<Shelf />}></Route>
             {/* <Route path="/page/:pageid" element={<Home />}></Route> */}
+            {/* <Route path="book/:bookId" element={<BookView />}></Route> */}
             <Route path="*" element={<PageNotAvailable />}></Route>
           </Routes>
 

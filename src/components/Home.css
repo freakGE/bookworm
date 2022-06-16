@@ -55,11 +55,12 @@
   height: 90%;
 }
 .inner-carousel .item img {
+  cursor: pointer;
   border: 2px solid hsl(213deg, 16%, 14%);
   border-radius: 0.5rem;
   width: 11rem;
   height: 70%;
-  pointer-events: none;
+  pointer-events: visible;
   display: inline-flex;
   justify-content: center;
   align-items: center;

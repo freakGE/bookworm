@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import { BiArrowBack } from "react-icons/bi";
 
 import { clearGenre } from "../features/genre/genreSlice";
-import { currentPath, newPath } from "../features/path/pathSlice";
+import {
+  currentPath,
+  newPath,
+  prevPath,
+  savePath,
+} from "../features/path/pathSlice";
 import { clearSearch } from "../features/search/searchSlice";
+import { addBook, removeBook, activeBook } from "../features/book/bookSlice";
 
 import "./Home.css";
 
-export default function ToHome() {
+export default function ToHome(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const prevPath = useSelector(state => state.path.prevPath);
+  // console.log(this.context.router.isActive());
   return (
     <motion.div
       className="toHome"
@@ -33,11 +43,26 @@ export default function ToHome() {
       exit={{ opacity: 0 }}
     >
       <Link
-        to="/"
+        to={
+          props.forceHome
+            ? "/"
+            : location.search.length > 0
+            ? location.pathname
+            : "/"
+        }
         onClick={() => {
           dispatch(clearGenre());
           dispatch(clearSearch());
-          dispatch(newPath("/"));
+          dispatch(removeBook());
+          dispatch(
+            newPath(
+              props.forceHome
+                ? "/"
+                : location.search.length > 0
+                ? location.pathname
+                : "/"
+            )
+          );
         }}
       >
         <h2>

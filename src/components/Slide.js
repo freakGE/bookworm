@@ -1,16 +1,21 @@
 import { motion } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import booksData from "../booksData.json";
 import Categories from "./Categories";
+import { addBook, removeBook, activeBook } from "../features/book/bookSlice";
 
 import "./Home.css";
 
 import { BsStarFill, BsStar, BsStarHalf } from "react-icons/bs";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
 
-export default function Slide() {
+export default function Slide(props) {
+  const activeBook = useSelector(state => state.book.activeBook);
+  const dispatch = useDispatch();
+
   const [isMobile, setIsMobile] = useState(false);
   ///
   const [screenSize, getDimension] = useState({
@@ -72,9 +77,66 @@ export default function Slide() {
   }, []);
 
   let slideLength = 4;
-  const prevBooks = data.filter(
+  // let prevBooks = data.filter(
+  //   (item, number) => item.id > data.length - slideLength
+  // );
+
+  /////
+  let prevBooks;
+
+  prevBooks = data.filter(
     (item, number) => item.id > data.length - slideLength
   );
+
+  const getMatch = (a, b) => {
+    var matches = [];
+
+    for (var i = 0; i < a.length; i++) {
+      for (var e = 0; e < b.length; e++) {
+        if (a[i] === b[e]) matches.push(a[i]);
+      }
+    }
+    return matches;
+  };
+
+  const filterMatches = arr => {
+    return arr.filter(
+      e =>
+        e !== "Classics" &&
+        e !== "Fiction" &&
+        e !== "Literature" &&
+        e !== "Novels"
+    );
+  };
+
+  const [highestScore, setHighestScore] = useState(0);
+
+  if (activeBook.id !== undefined) {
+    let array = [];
+    let matchesLengths = [];
+
+    data.map((item, number) => {
+      let matcheGenres = filterMatches(getMatch(item.genre, activeBook.genre));
+      let matcheLength = matcheGenres.length;
+
+      matchesLengths.push(matcheLength);
+      let highScore = Math.max.apply(Math, matchesLengths);
+
+      if (highestScore < highScore) {
+        setHighestScore(highScore);
+      }
+      if (matcheLength >= highestScore - 3) {
+        if (item.id !== activeBook.id) {
+          array.push(item);
+        }
+      }
+      array.slice(0, 10);
+    });
+
+    if (array.length <= 10) {
+      prevBooks = array;
+    }
+  }
 
   function stars(rate) {
     let rating = parseFloat(rate);
@@ -203,7 +265,9 @@ export default function Slide() {
   }
 
   const carouselStyle = {
-    cursor: `${screenSize.dynamicWidth < 1150 ? "grab" : ""}`,
+    cursor: props.activeBook
+      ? "grab"
+      : `${screenSize.dynamicWidth < 1150 ? "grab" : ""}`,
   };
 
   let size = isMobile ? 3 : 1;
@@ -232,18 +296,28 @@ export default function Slide() {
           className="carousel"
           style={carouselStyle}
           whileTap={{
-            cursor: `${screenSize.dynamicWidth <= 930 ? "grabbing" : ""}`,
+            cursor: props.activeBook
+              ? "grabbing"
+              : `${screenSize.dynamicWidth <= 930 ? "grabbing" : "grabbing"}`,
           }}
         >
           {screenSize.dynamicWidth <= 930 ? (
             <>
-              <motion.div className="arrow left" onClick={slideLeft}>
-                <RiArrowLeftSLine />
-              </motion.div>
+              {props.activeBook ? (
+                ""
+              ) : (
+                <motion.div className="arrow left" onClick={slideLeft}>
+                  <RiArrowLeftSLine />
+                </motion.div>
+              )}
               <motion.div
                 drag="x"
                 dragConstraints={{ right: 0, left: -carouselWidth }}
                 className="inner-carousel wrapper"
+                style={{
+                  justifyContent:
+                    prevBooks.length < 3 ? "space-evenly" : "space-between",
+                }}
                 animate={{ x: sliderAnimation }}
               >
                 {prevBooks.map(book => (
@@ -251,6 +325,9 @@ export default function Slide() {
                     <img
                       src={book.image}
                       alt={book.title}
+                      onClick={() => {
+                        dispatch(addBook(book));
+                      }}
                       className="unselectable"
                     ></img>
                     <div className="card-cont">
@@ -281,21 +358,38 @@ export default function Slide() {
                   </motion.div>
                 ))}
               </motion.div>
-              <motion.div className="arrow right" onClick={slideRight}>
-                <RiArrowRightSLine />
-              </motion.div>
+              {props.activeBook ? (
+                ""
+              ) : (
+                <motion.div className="arrow right" onClick={slideRight}>
+                  <RiArrowRightSLine />
+                </motion.div>
+              )}
             </>
           ) : (
             <motion.div
-              drag={screenSize.dynamicWidth < 1150 ? "x" : ""}
+              drag={
+                props.activeBook
+                  ? "x"
+                  : screenSize.dynamicWidth < 1150
+                  ? "x"
+                  : ""
+              }
               dragConstraints={{ right: 0, left: -carouselWidth }}
               className="inner-carousel wrapper"
+              style={{
+                justifyContent:
+                  prevBooks.length < 3 ? "space-evenly" : "space-between",
+              }}
             >
               {prevBooks.map(book => (
                 <motion.div className="item" key={book.id}>
                   <img
                     src={book.image}
                     alt={book.title}
+                    onClick={() => {
+                      dispatch(addBook(book));
+                    }}
                     className="unselectable"
                   ></img>
                   <div className="card-cont">
@@ -329,10 +423,14 @@ export default function Slide() {
           )}
         </motion.div>
       </motion.div>
-      <motion.div className="books-category">
-        <div className="line"></div>
-        <Categories mode="dark" list={booksData.test} />
-      </motion.div>
+      {props.activeBook ? (
+        ""
+      ) : (
+        <motion.div className="books-category">
+          <div className="line"></div>
+          <Categories mode="dark" list={booksData.test} />
+        </motion.div>
+      )}
     </>
   );
 }

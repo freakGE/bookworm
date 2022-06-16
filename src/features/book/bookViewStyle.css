@@ -1,0 +1,183 @@
+.bookSection {
+  min-height: 88vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.bookViewContainer {
+  width: min(90%, 60rem);
+  height: auto;
+  min-height: 21rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+.bookViewContainer img {
+  width: 11rem;
+  height: 15rem;
+  background-color: hsl(180deg, 2%, 88%);
+  color: hsl(213deg, 16%, 14%);
+  border: 2px solid hsl(213deg, 16%, 14%);
+  border-radius: 10px;
+}
+.bookViewContainer h1 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+  font-size: 1.5rem;
+}
+.bookViewContainer p {
+  font-size: 1rem;
+  white-space: pre-line;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  margin: 0;
+}
+.bookViewContainer .line {
+  min-height: 15rem;
+  width: 0.15rem;
+  margin: 0.5rem;
+}
+.bookViewContainer .rating {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0.6rem 0;
+  padding: 0;
+  width: 7.5rem;
+}
+.bookViewContainer .rating svg {
+  height: 100%;
+  color: hsl(26deg, 96%, 56%);
+}
+.bookViewContainer .rating .number {
+  position: absolute;
+  right: 0;
+  top: -4px;
+}
+.bookViewContainer .leftView {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.bookViewContainer .leftView .insideLeftView {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.bookViewContainer .leftView .insideLeftView img {
+  margin-top: 1.8rem;
+}
+.bookViewContainer .leftView .insideLeftView svg {
+  margin-top: 0.5rem;
+  font-size: 2.5rem;
+}
+.bookViewContainer .leftView .insideLeftView svg:hover {
+  transition: 0.3s;
+  color: hsl(26deg, 90%, 56%);
+}
+.bookViewContainer .rightView {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+.bookViewContainer .rightView .author {
+  font-size: 1.1rem;
+}
+.bookViewContainer .rightView .more {
+  cursor: pointer;
+  color: hsl(26deg, 96%, 56%);
+  background-color: white;
+  padding-left: 0.5rem;
+  right: 1px;
+  width: 4rem;
+  bottom: 0px;
+}
+.bookViewContainer .rightView .more:hover {
+  color: hsl(26deg, 90%, 56%);
+}
+.bookViewContainer .rightView .more:focus {
+  color: hsl(26deg, 90%, 53%);
+}
+.bookViewContainer .mobileView {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  min-height: 25rem;
+}
+.bookViewContainer .frontView {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+.bookViewContainer .frontView .insideLeftView {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.bookViewContainer .frontView .insideLeftView img {
+  margin-top: 1.5rem;
+}
+.bookViewContainer .frontView .insideLeftView svg {
+  margin-top: 0.5rem;
+  font-size: 2.5rem;
+}
+.bookViewContainer .frontView .insideRightView {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+.bookViewContainer .frontView .insideRightView .author {
+  font-size: 1.1rem;
+}
+.bookViewContainer .frontView .insideRightView h1 {
+  position: relative;
+}
+.bookViewContainer .frontView .insideRightView h1 svg {
+  margin-left: 0.5rem;
+  font-size: 2rem;
+  position: absolute;
+  top: 0px;
+}
+.bookViewContainer .frontView .insideRightView h1 svg:hover {
+  transition: 0.3s;
+  color: hsl(26deg, 90%, 56%);
+}
+.bookViewContainer .backView p {
+  margin-top: 1rem;
+  font-size: 1rem;
+  white-space: pre-line;
+}
+.bookViewContainer .backView .more {
+  cursor: pointer;
+  color: hsl(26deg, 96%, 56%);
+  background-color: white;
+  padding-left: 0.5rem;
+  right: 1px;
+  width: 4rem;
+  bottom: 0px;
+}
+.bookViewContainer .backView .more:hover {
+  color: hsl(26deg, 90%, 56%);
+}
+.bookViewContainer .backView .more:focus {
+  color: hsl(26deg, 90%, 53%);
+}
+
+.lineX {
+  background-color: hsl(180deg, 2%, 88%);
+  height: 0.15rem;
+  width: min(100%, 60rem);
+  margin-top: 1rem;
+}/*# sourceMappingURL=bookViewStyle.css.map */

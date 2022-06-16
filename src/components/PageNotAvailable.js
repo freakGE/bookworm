@@ -8,7 +8,7 @@ import ToHome from "./ToHome";
 export const PageNotAvailable = () => {
   return (
     <div className="pageNotAvailable">
-      <ToHome />
+      <ToHome forceHome={true} />
       <span>
         <BiUnlink />
       </span>

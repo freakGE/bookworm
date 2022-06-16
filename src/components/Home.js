@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Home.css";
 
 import EmptyHome from "./EmptyHome";
+import { BookView } from "../features/book/BookView";
 
 import {
   BrowserRouter as Router,
@@ -12,6 +13,8 @@ import {
   Routes,
   Switch,
   useSearchParams,
+  Navigate,
+  useNavigate,
 } from "react-router-dom";
 
 import booksData from "../booksData.json";
@@ -36,6 +39,7 @@ import {
 import {
   addGenre,
   removeGenre,
+  clearGenre,
   listOfGenre,
 } from "../features/genre/genreSlice";
 
@@ -45,7 +49,16 @@ import {
   currentSearch,
 } from "../features/search/searchSlice";
 
-import { useParams } from "react-router-dom";
+import {
+  currentPath,
+  newPath,
+  prevPath,
+  savePath,
+} from "../features/path/pathSlice";
+
+import { addBook, removeBook, activeBook } from "../features/book/bookSlice";
+
+import { useParams, useLocation } from "react-router-dom";
 
 import Slide from "./Slide";
 
@@ -53,6 +66,12 @@ export default function Home(props) {
   let booksDataList = booksData.books; //test
 
   ////
+
+  const location = useLocation();
+  useEffect(() => {
+    dispatch(savePath(location.pathname));
+  }, []);
+
   const currentSearch = useSelector(state => state.search.currentSearch);
   const [searchParams, setSearchParams] = useSearchParams();
   const showQuestions = searchParams.get("q");
@@ -66,8 +85,12 @@ export default function Home(props) {
   }, [currentSearch]);
 
   useEffect(() => {
+    // URL
     if (showQuestions != null && showQuestions.length > 0) {
       dispatch(newSearch(showQuestions));
+    }
+    if (activeBook.id !== undefined) {
+      dispatch(removeBook());
     }
   }, [showQuestions]);
 
@@ -87,6 +110,41 @@ export default function Home(props) {
       });
     }
   }, [currentSearch]);
+  ////
+  // book
+  const activeBook = useSelector(state => state.book.activeBook);
+  const showBook = searchParams.get("book");
+
+  useEffect(() => {
+    if (activeBook.id != undefined) {
+      setSearchParams({
+        book: `${activeBook.title.toLowerCase()}-${activeBook.id}`,
+      });
+    } else {
+      setSearchParams({});
+    }
+  }, [activeBook]);
+
+  // useEffect(() => {
+  //   console.log(showBook);
+  // }, [showBook]);
+
+  useEffect(() => {
+    //   // URL
+    if (showBook != null && showBook.length > 0) {
+      // dispatch(addBook(showBook));
+      // console.log(showBook);
+      const [bookTitle, bookId] = showBook.split("-");
+      booksDataList.filter((item, index) => {
+        if (item.title.toLowerCase() === bookTitle && item.id && bookId) {
+          dispatch(addBook(item));
+        }
+      });
+    }
+  }, [showBook]);
+
+  //// navigate book
+  const navigate = useNavigate();
   ////
 
   const dispatch = useDispatch();
@@ -451,242 +509,251 @@ export default function Home(props) {
 
   return (
     <>
-      <section className="home">
-        <Slide />
-        <div className="main wrapper">
-          {testData.length > 0 ? (
-            <div
-              ref={booksContainerRef}
-              className="books-container"
-              style={booksContainerStyle}
-            >
-              {data.map((book, index) => {
-                // index += 1;
+      {activeBook.id !== undefined ? (
+        <BookView />
+      ) : (
+        <section className="home">
+          <Slide />
+          <div className="main wrapper">
+            {testData.length > 0 ? (
+              <div
+                ref={booksContainerRef}
+                className="books-container"
+                style={booksContainerStyle}
+              >
+                {data.map((book, index) => {
+                  // index += 1;
 
-                // console.log(index);
-                if (index > rowLength) {
-                  itemStyle = {
-                    // border: "1px solid hsl(180, 2%, 88%)",
-                  };
-                }
-                if (data.length - rowLength < index) {
-                  itemStyle = {
-                    // borderBottom: "1px solid white",
-                  };
-                }
-                return (
-                  <div
-                    onMouseEnter={itemHoverColor}
-                    onMouseLeave={itemUnHoverColor}
-                    key={index}
-                    id={`itemID${index}`}
-                    className="item"
-                    style={itemStyle}
-                    onClick={itemHoverColor}
-                  >
-                    {itemOnHover &&
-                    `itemID${index < 20 ? index + 1 : index}` === itemID ? (
-                      <>
-                        <motion.div
-                          className="itemOverlay"
-                          initial={{ opacity: 0.5 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                        ></motion.div>
-                        <motion.div
-                          className="overlayContainer"
-                          initial={{ opacity: 0 }}
-                          animate={{
-                            x: 0,
-                            y: -15,
-                            opacity: 1,
-                          }}
-                          exit={{ opacity: 0 }}
-                        >
+                  // console.log(index);
+                  if (index > rowLength) {
+                    itemStyle = {
+                      // border: "1px solid hsl(180, 2%, 88%)",
+                    };
+                  }
+                  if (data.length - rowLength < index) {
+                    itemStyle = {
+                      // borderBottom: "1px solid white",
+                    };
+                  }
+                  return (
+                    <div
+                      onMouseEnter={itemHoverColor}
+                      onMouseLeave={itemUnHoverColor}
+                      key={index}
+                      id={`itemID${index}`}
+                      className="item"
+                      style={itemStyle}
+                      onClick={itemHoverColor}
+                    >
+                      {itemOnHover &&
+                      `itemID${index < 20 ? index + 1 : index}` === itemID ? (
+                        <>
                           <motion.div
-                            onClick={e => {
-                              const foundItem = shelf.includes(book);
+                            className="itemOverlay"
+                            initial={{ opacity: 0.5 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                          ></motion.div>
+                          <motion.div
+                            className="overlayContainer"
+                            initial={{ opacity: 0 }}
+                            animate={{
+                              x: 0,
+                              y: -15,
+                              opacity: 1,
+                            }}
+                            exit={{ opacity: 0 }}
+                          >
+                            <motion.div
+                              onClick={e => {
+                                const foundItem = shelf.includes(book);
 
-                              if (!foundItem) {
-                                dispatch(addToFavorites(book));
-                              } else {
-                                dispatch(removeFromFavorites(book.id));
-                              }
-                              // console.log(book);
-                            }}
-                            id={`fav${index}`}
-                            // style={favoriteStyle}
-                            whileHover={{
-                              scale: 1.3,
-                              color: "hsla(26, 90%, 56%, 1)",
-                            }}
-                            whileTap={{ scale: 1 }}
-                            style={{
-                              color: shelf.includes(book)
-                                ? "hsla(26, 90%, 56%, 1)"
-                                : "hsl(213, 16%, 14%)",
-                              cursor: "pointer",
-                            }}
-                          >
-                            <MdFavorite />
+                                if (!foundItem) {
+                                  dispatch(addToFavorites(book));
+                                } else {
+                                  dispatch(removeFromFavorites(book.id));
+                                }
+                                // console.log(book);
+                              }}
+                              id={`fav${index}`}
+                              // style={favoriteStyle}
+                              whileHover={{
+                                scale: 1.3,
+                                color: "hsla(26, 90%, 56%, 1)",
+                              }}
+                              whileTap={{ scale: 1 }}
+                              style={{
+                                color: shelf.includes(book)
+                                  ? "hsla(26, 90%, 56%, 1)"
+                                  : "hsl(213, 16%, 14%)",
+                                cursor: "pointer",
+                              }}
+                            >
+                              <MdFavorite />
+                            </motion.div>
+                            <motion.div
+                              whileHover={{
+                                scale: 1.3,
+                                color: "hsla(26, 90%, 56%, 1)",
+                              }}
+                              whileTap={{ scale: 1 }}
+                              style={{ cursor: "pointer" }}
+                              onClick={() => {
+                                dispatch(addBook(book));
+                              }}
+                            >
+                              <BsFillArrowRightCircleFill />
+                            </motion.div>
                           </motion.div>
-                          <motion.div
-                            whileHover={{
-                              scale: 1.3,
-                              color: "hsla(26, 90%, 56%, 1)",
-                            }}
-                            whileTap={{ scale: 1 }}
-                            style={{ cursor: "pointer" }}
-                          >
-                            <BsFillArrowRightCircleFill />
-                          </motion.div>
-                        </motion.div>
-                      </>
-                    ) : (
-                      ""
-                    )}
-                    <img
-                      src={book.image}
-                      alt={book.title}
-                      style={{
-                        width:
-                          screenSize.dynamicWidth < 390
-                            ? data.length === 1
-                              ? "11rem"
-                              : "90%"
-                            : screenSize.dynamicWidth < mobileWidth &&
-                              data.length === 1
-                            ? "11rem"
-                            : "11rem",
-                      }}
-                      className="unselectable"
-                    ></img>
-                    <div className="card-cont">
-                      <h3
+                        </>
+                      ) : (
+                        ""
+                      )}
+                      <img
+                        src={book.image}
+                        alt={book.title}
                         style={{
-                          fontSize: `${
-                            book.title.length > 20
-                              ? `${
-                                  book.title.length > 25
-                                    ? `${
-                                        book.title.length > 35
-                                          ? ".75rem"
-                                          : ".85rem"
-                                      }`
-                                    : ".9rem"
-                                }`
-                              : "auto"
-                          }`,
+                          width:
+                            screenSize.dynamicWidth < 390
+                              ? data.length === 1
+                                ? "11rem"
+                                : "90%"
+                              : screenSize.dynamicWidth < mobileWidth &&
+                                data.length === 1
+                              ? "11rem"
+                              : "11rem",
+                        }}
+                        className="unselectable"
+                      ></img>
+                      <div className="card-cont">
+                        <h3
+                          style={{
+                            fontSize: `${
+                              book.title.length > 20
+                                ? `${
+                                    book.title.length > 25
+                                      ? `${
+                                          book.title.length > 35
+                                            ? ".75rem"
+                                            : ".85rem"
+                                        }`
+                                      : ".9rem"
+                                  }`
+                                : "auto"
+                            }`,
+                          }}
+                        >
+                          {book.title}
+                        </h3>
+                        <h4>
+                          {stars(book.rating)}
+                          {book.rating}
+                        </h4>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <EmptyHome />
+            )}
+
+            {testData.length > 20 ? ( //data.length > 20
+              <div className="pagination wrapper unselectable">
+                <div className="pageSwitcher">
+                  <ul>
+                    {currentPage === 1 ? (
+                      ""
+                    ) : (
+                      <li
+                        className="prev"
+                        onClick={() => {
+                          setCurrentPage(currentPage - 1);
                         }}
                       >
-                        {book.title}
-                      </h3>
-                      <h4>
-                        {stars(book.rating)}
-                        {book.rating}
-                      </h4>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <EmptyHome />
-          )}
-
-          {testData.length > 20 ? ( //data.length > 20
-            <div className="pagination wrapper unselectable">
-              <div className="pageSwitcher">
-                <ul>
-                  {currentPage === 1 ? (
-                    ""
-                  ) : (
+                        <Link to="">
+                          <RiArrowLeftSLine />
+                        </Link>
+                      </li>
+                    )}
                     <li
-                      className="prev"
-                      onClick={() => {
-                        setCurrentPage(currentPage - 1);
-                      }}
+                      className={currentPage === 1 ? "active" : "page"}
+                      onClick={switchPage}
                     >
-                      <Link to="">
-                        <RiArrowLeftSLine />
-                      </Link>
+                      <Link to="">1</Link>
                     </li>
-                  )}
-                  <li
-                    className={currentPage === 1 ? "active" : "page"}
-                    onClick={switchPage}
-                  >
-                    <Link to="">1</Link>
-                  </li>
-                  {currentPage < 5 ? (
-                    ""
-                  ) : (
-                    <li className="choose">
-                      <Link to="">
-                        <BsThreeDots />
-                      </Link>
-                    </li>
-                  )}
-                  {paginationArray.map((item, index) => {
-                    index += 1;
-                    if (index === 1 || index === paginationLength) {
-                      return false;
-                    } else if (
-                      index < currentPage - 2 ||
-                      index > currentPage + 2
-                    ) {
-                      return false;
-                    } else {
-                      return (
-                        <li
-                          className={currentPage === index ? "active" : "page"}
-                          key={index}
-                          onClick={switchPage}
-                        >
-                          <Link to="">{index}</Link>
-                        </li>
-                      );
-                    }
-                  })}
-                  {paginationLength - 3 <= currentPage ? (
-                    ""
-                  ) : (
-                    <li className="choose">
-                      <Link to="">
-                        <BsThreeDots />
-                      </Link>
-                    </li>
-                  )}
-                  <li
-                    className={
-                      currentPage === paginationLength ? "active" : "page"
-                    }
-                    onClick={switchPage}
-                  >
-                    <Link to="">{parseInt(paginationLength)}</Link>
-                  </li>
-                  {currentPage === paginationLength ? ( //15> lastPage
-                    ""
-                  ) : (
+                    {currentPage < 5 ? (
+                      ""
+                    ) : (
+                      <li className="choose">
+                        <Link to="">
+                          <BsThreeDots />
+                        </Link>
+                      </li>
+                    )}
+                    {paginationArray.map((item, index) => {
+                      index += 1;
+                      if (index === 1 || index === paginationLength) {
+                        return false;
+                      } else if (
+                        index < currentPage - 2 ||
+                        index > currentPage + 2
+                      ) {
+                        return false;
+                      } else {
+                        return (
+                          <li
+                            className={
+                              currentPage === index ? "active" : "page"
+                            }
+                            key={index}
+                            onClick={switchPage}
+                          >
+                            <Link to="">{index}</Link>
+                          </li>
+                        );
+                      }
+                    })}
+                    {paginationLength - 3 <= currentPage ? (
+                      ""
+                    ) : (
+                      <li className="choose">
+                        <Link to="">
+                          <BsThreeDots />
+                        </Link>
+                      </li>
+                    )}
                     <li
-                      className="next"
-                      onClick={() => {
-                        setCurrentPage(currentPage + 1);
-                      }}
+                      className={
+                        currentPage === paginationLength ? "active" : "page"
+                      }
+                      onClick={switchPage}
                     >
-                      <Link to="">
-                        <RiArrowRightSLine />
-                      </Link>
+                      <Link to="">{parseInt(paginationLength)}</Link>
                     </li>
-                  )}
-                </ul>
+                    {currentPage === paginationLength ? ( //15> lastPage
+                      ""
+                    ) : (
+                      <li
+                        className="next"
+                        onClick={() => {
+                          setCurrentPage(currentPage + 1);
+                        }}
+                      >
+                        <Link to="">
+                          <RiArrowRightSLine />
+                        </Link>
+                      </li>
+                    )}
+                  </ul>
+                </div>
               </div>
-            </div>
-          ) : (
-            ""
-          )}
-        </div>
-      </section>
+            ) : (
+              ""
+            )}
+          </div>
+        </section>
+      )}
     </>
   );
 }
