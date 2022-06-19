@@ -16,11 +16,17 @@ import {
   removeGenre,
   listOfGenre,
 } from "../features/genre/genreSlice";
-import { useSearchParams, Link } from "react-router-dom";
+import {
+  useSearchParams,
+  Link,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
 export default function Slide(props) {
   const dispatch = useDispatch();
-
+  const location = useLocation();
+  const navigate = useNavigate();
   //// search logic
   const listOfGenre = useSelector(state => state.genre.listOfGenre);
 

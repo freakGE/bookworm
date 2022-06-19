@@ -61,6 +61,7 @@ import { addBook, removeBook, activeBook } from "../features/book/bookSlice";
 import { useParams, useLocation } from "react-router-dom";
 
 import Slide from "./Slide";
+import Pagination from "./Pagination";
 
 export default function Home(props) {
   let booksDataList = booksData.books; //test
@@ -68,6 +69,7 @@ export default function Home(props) {
   ////
 
   const location = useLocation();
+
   useEffect(() => {
     dispatch(savePath(location.pathname));
   }, []);
@@ -99,6 +101,15 @@ export default function Home(props) {
       setTestData(booksDataList);
     } else {
       setTestData([]);
+
+      let search = location.search;
+      if (location.pathname.includes("/page=")) {
+        let [pn, number] = location.pathname.split("=");
+        if (number > 1) {
+          navigate(`${pn}=1${search}`);
+        }
+      }
+
       booksDataList.filter((item, index) => {
         if (
           item.title.toLowerCase().includes(currentSearch.toLowerCase()) ||
@@ -158,6 +169,15 @@ export default function Home(props) {
       setTestData(booksDataList);
     } else {
       setTestData([]);
+
+      let search = location.search;
+      if (location.pathname.includes("/page=")) {
+        let [pn, number] = location.pathname.split("=");
+        if (number > 1) {
+          navigate(`${pn}=1${search}`);
+        }
+      }
+
       booksDataList.filter((item, index) => {
         //every > strict
         // if (listOfGenre.every(cat => item.genre.includes(cat))) {
@@ -180,7 +200,8 @@ export default function Home(props) {
 
   const [currentPage, setCurrentPage] = useState(1); //default
   const [paginationLength, setPaginationLength] = useState(0);
-  const [prevPageLength, setPrevPageLength] = useState(0);
+  // const [prevPageLength, setPrevPageLength] = useState(0);
+  const [prevPageLength, setPrevPageLength] = useState(1 * booksLength);
   const [paginationArray, setPaginationArray] = useState([]);
   // const [dotsClicked, setDotsClicked] = useState(false);
 
@@ -197,18 +218,11 @@ export default function Home(props) {
 
   useEffect(() => {
     setPaginationLength(Math.floor(testData.length / booksLength));
-    // setPaginationLength(Math.round(500 / booksLength));
   }, [booksLength, testData.length]);
 
-  // data = testData.filter((item, index) => x * booksLength )
-
-  let dataSlicer = testData.slice(prevPageLength);
-
-  // console.log(dataSlicer.length);
+  let dataSlicer = testData.slice(prevPageLength - booksLength, prevPageLength);
 
   let data = dataSlicer.filter((item, index) => index < booksLength);
-  // data = testData;
-  // const genres = testData;
 
   const [isMobile, setIsMobile] = useState(false);
   ///
@@ -272,22 +286,8 @@ export default function Home(props) {
   }, []);
 
   //// style
-  // data length in page
-  // console.log(data.length);
-
-  // grid-template-rows: repeat(4, 1fr); //5, 1fr
-
   let rowStyle = "";
   let columnStyle = "";
-  // if (data.length > 15) {
-  //   rowStyle = "repeat(4, 1fr)";
-  // } else if (data.length > 10 && data.length <= 15) {
-  //   rowStyle = "repeat(3, 1fr)";
-  // } else if (data.length > 5 && data.length <= 10) {
-  //   rowStyle = "repeat(2, 1fr)";
-  // } else if (data.length > 0 && data.length <= 5) {
-  //   rowStyle = "repeat(1, 1fr)";
-  // }
 
   if (data.length > 15) {
     columnStyle = "repeat(5, 1fr)";
@@ -482,9 +482,30 @@ export default function Home(props) {
 
   // page switch
   /////
+  useEffect(() => {
+    let pathName = location.pathname;
+    if (pathName.includes("page=")) {
+      let [splicePath, pathNumber] = pathName.split("=");
+      setPrevPageLength(booksLength * parseInt(pathNumber));
+      setCurrentPage(parseInt(pathNumber));
+    }
+  }, [location]);
+
   const switchPage = e => {
-    setCurrentPage(parseInt(e.target.textContent));
-    setPrevPageLength(booksLength * currentPage);
+    let pageNumber = parseInt(e.target.textContent);
+    setCurrentPage(pageNumber);
+    // setPrevPageLength(booksLength * currentPage);
+    setPrevPageLength(booksLength * pageNumber);
+  };
+
+  const switchPageByOne = move => {
+    if (move === "prev") {
+      setPrevPageLength(booksLength * (currentPage - 1));
+      setCurrentPage(currentPage - 1);
+    } else if (move === "next") {
+      setPrevPageLength(booksLength * (currentPage + 1));
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   /////
@@ -505,7 +526,7 @@ export default function Home(props) {
       e.target.style.color = "hsl(26, 96%, 56%)";
     }
   };
-  /////
+  ///// pagination
 
   return (
     <>
@@ -522,9 +543,6 @@ export default function Home(props) {
                 style={booksContainerStyle}
               >
                 {data.map((book, index) => {
-                  // index += 1;
-
-                  // console.log(index);
                   if (index > rowLength) {
                     itemStyle = {
                       // border: "1px solid hsl(180, 2%, 88%)",
@@ -658,99 +676,7 @@ export default function Home(props) {
               <EmptyHome />
             )}
 
-            {testData.length > 20 ? ( //data.length > 20
-              <div className="pagination wrapper unselectable">
-                <div className="pageSwitcher">
-                  <ul>
-                    {currentPage === 1 ? (
-                      ""
-                    ) : (
-                      <li
-                        className="prev"
-                        onClick={() => {
-                          setCurrentPage(currentPage - 1);
-                        }}
-                      >
-                        <Link to="">
-                          <RiArrowLeftSLine />
-                        </Link>
-                      </li>
-                    )}
-                    <li
-                      className={currentPage === 1 ? "active" : "page"}
-                      onClick={switchPage}
-                    >
-                      <Link to="">1</Link>
-                    </li>
-                    {currentPage < 5 ? (
-                      ""
-                    ) : (
-                      <li className="choose">
-                        <Link to="">
-                          <BsThreeDots />
-                        </Link>
-                      </li>
-                    )}
-                    {paginationArray.map((item, index) => {
-                      index += 1;
-                      if (index === 1 || index === paginationLength) {
-                        return false;
-                      } else if (
-                        index < currentPage - 2 ||
-                        index > currentPage + 2
-                      ) {
-                        return false;
-                      } else {
-                        return (
-                          <li
-                            className={
-                              currentPage === index ? "active" : "page"
-                            }
-                            key={index}
-                            onClick={switchPage}
-                          >
-                            <Link to="">{index}</Link>
-                          </li>
-                        );
-                      }
-                    })}
-                    {paginationLength - 3 <= currentPage ? (
-                      ""
-                    ) : (
-                      <li className="choose">
-                        <Link to="">
-                          <BsThreeDots />
-                        </Link>
-                      </li>
-                    )}
-                    <li
-                      className={
-                        currentPage === paginationLength ? "active" : "page"
-                      }
-                      onClick={switchPage}
-                    >
-                      <Link to="">{parseInt(paginationLength)}</Link>
-                    </li>
-                    {currentPage === paginationLength ? ( //15> lastPage
-                      ""
-                    ) : (
-                      <li
-                        className="next"
-                        onClick={() => {
-                          setCurrentPage(currentPage + 1);
-                        }}
-                      >
-                        <Link to="">
-                          <RiArrowRightSLine />
-                        </Link>
-                      </li>
-                    )}
-                  </ul>
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
+            <Pagination data={testData} booksLength={parseInt(booksLength)} />
           </div>
         </section>
       )}

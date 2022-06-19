@@ -42,6 +42,7 @@ import { BookView } from "./features/book/BookView";
 import { removeBook } from "./features/book/bookSlice";
 
 function App() {
+  const dataOfBooks = booksData.books;
   const prevPath = useSelector(state => state.path.prevPath);
   const currentPath = useSelector(state => state.path.currentPath);
   const currentSearch = useSelector(state => state.search.currentSearch);
@@ -89,6 +90,16 @@ function App() {
   const handleChange = e => {
     setBook(e.target.value);
   };
+
+  const [booksLength, setBooksLength] = useState(20);
+
+  let amountOfPage = Math.ceil(dataOfBooks.length / booksLength);
+
+  let amountOfPageArray = [];
+
+  for (let i = 0; i < amountOfPage; i++) {
+    amountOfPageArray.push(i);
+  }
 
   return (
     <>
@@ -206,7 +217,16 @@ function App() {
           )}
 
           <Routes>
-            <Route exact path="/" element={<Home />}></Route>
+            <Route exact path="/" element={<Home />}>
+              {amountOfPageArray.map((item, index) => {
+                return (
+                  <Route
+                    path={`page=${index + 1}`}
+                    element={<Home amountOfPage={amountOfPageArray.length} />}
+                  />
+                );
+              })}
+            </Route>
             <Route path="shelf" element={<Shelf />}></Route>
             {/* <Route path="/page/:pageid" element={<Home />}></Route> */}
             {/* <Route path="book/:bookId" element={<BookView />}></Route> */}
