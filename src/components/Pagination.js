@@ -64,7 +64,7 @@ const Pagination = props => {
               ) : (
                 <li className="prev">
                   <Link
-                    to={`/page=${currentPage - 1}`}
+                    to={`/bookworm/page=${currentPage - 1}`}
                     onClick={() => switchPageByOne("prev")}
                   >
                     <RiArrowLeftSLine />
@@ -72,7 +72,7 @@ const Pagination = props => {
                 </li>
               )}
               <li className={currentPage === 1 ? "active" : "page"}>
-                <Link onClick={switchPage} to={"/page=1"}>
+                <Link onClick={switchPage} to={"/bookworm/page=1"}>
                   1
                 </Link>
               </li>
@@ -97,7 +97,7 @@ const Pagination = props => {
                       className={currentPage === index ? "active" : "page"}
                       key={index}
                     >
-                      <Link onClick={switchPage} to={`/page=${index}`}>
+                      <Link onClick={switchPage} to={`/bookworm/page=${index}`}>
                         {index}
                       </Link>
                     </li>
@@ -116,7 +116,10 @@ const Pagination = props => {
               <li
                 className={currentPage === paginationLength ? "active" : "page"}
               >
-                <Link to={`/page=${paginationLength}`} onClick={switchPage}>
+                <Link
+                  to={`/bookworm/page=${paginationLength}`}
+                  onClick={switchPage}
+                >
                   {parseInt(paginationLength)}
                 </Link>
               </li>
@@ -125,7 +128,7 @@ const Pagination = props => {
               ) : (
                 <li className="next">
                   <Link
-                    to={`/page=${currentPage + 1}`}
+                    to={`/bookworm/page=${currentPage + 1}`}
                     onClick={() => switchPageByOne("next")}
                   >
                     <RiArrowRightSLine />

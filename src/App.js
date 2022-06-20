@@ -100,7 +100,6 @@ function App() {
   for (let i = 0; i < amountOfPage; i++) {
     amountOfPageArray.push(i);
   }
-  const root = "bookworm/";
   return (
     <>
       <MetaTags />
@@ -110,12 +109,8 @@ function App() {
             <header>
               <div className="header-container wrapper">
                 <Link
-                  to="/"
+                  to="/bookworm"
                   onClick={() => {
-                    // if (currentPath !== "/") {
-                    //   dispatch(clearGenre());
-                    //   dispatch(newPath("/"));
-                    // }
                     dispatch(clearGenre());
                     dispatch(clearSearch());
                     dispatch(removeBook());
@@ -138,7 +133,7 @@ function App() {
                   </button>
                 </form>
                 <Link
-                  to="/shelf"
+                  to="/bookworm/shelf"
                   onClick={() => {
                     dispatch(removeBook());
                     dispatch(clearSearch());
@@ -177,13 +172,8 @@ function App() {
                       <AiOutlineSearch />
                     </div>
                     <Link
-                      to="/"
+                      to="/bookworm"
                       onClick={() => {
-                        // if (currentPath !== "/") {
-                        //   dispatch(clearSearch());
-                        //   dispatch(clearGenre());
-                        //   dispatch(newPath("/"));
-                        // }
                         dispatch(removeBook());
                         dispatch(clearSearch());
                         dispatch(clearGenre());
@@ -198,12 +188,8 @@ function App() {
                 )}
 
                 <Link
-                  to="/shelf"
+                  to="/bookworm/shelf"
                   onClick={() => {
-                    // if (currentPath !== "/shelf") {
-                    //   dispatch(clearGenre());
-                    //   dispatch(newPath("/shelf"));
-                    // }
                     dispatch(removeBook());
                     dispatch(newPath("/shelf"));
                     dispatch(clearGenre());
@@ -217,7 +203,7 @@ function App() {
           )}
 
           <Routes>
-            <Route exact path="/" element={<Home />}>
+            <Route exact path="bookworm" element={<Home />}>
               {amountOfPageArray.map((item, index) => {
                 return (
                   <Route
@@ -227,7 +213,7 @@ function App() {
                 );
               })}
             </Route>
-            <Route path="shelf" element={<Shelf />}></Route>
+            <Route path="bookworm/shelf" element={<Shelf />}></Route>
             <Route path="*" element={<PageNotAvailable />}></Route>
           </Routes>
 

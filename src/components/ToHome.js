@@ -45,10 +45,10 @@ export default function ToHome(props) {
       <Link
         to={
           props.forceHome
-            ? "/"
+            ? "/bookworm"
             : location.search.length > 0
             ? location.pathname
-            : "/"
+            : "/bookworm"
         }
         onClick={() => {
           dispatch(clearGenre());
@@ -57,10 +57,10 @@ export default function ToHome(props) {
           dispatch(
             newPath(
               props.forceHome
-                ? "/"
+                ? "/bookworm"
                 : location.search.length > 0
                 ? location.pathname
-                : "/"
+                : "/bookworm"
             )
           );
         }}
@@ -69,17 +69,6 @@ export default function ToHome(props) {
           <BiArrowBack />
         </h2>
       </Link>
-      {/* <button
-        onClick={() => {
-          dispatch(clearGenre());
-          // dispatch(newPath("/"));
-          navigate(-1);
-        }}
-      >
-        <h2>
-          <BiArrowBack />
-        </h2>
-      </button> */}
     </motion.div>
   );
 }
