@@ -100,7 +100,7 @@ function App() {
   for (let i = 0; i < amountOfPage; i++) {
     amountOfPageArray.push(i);
   }
-
+  const root = "bookworm/";
   return (
     <>
       <MetaTags />
@@ -228,8 +228,6 @@ function App() {
               })}
             </Route>
             <Route path="shelf" element={<Shelf />}></Route>
-            {/* <Route path="/page/:pageid" element={<Home />}></Route> */}
-            {/* <Route path="book/:bookId" element={<BookView />}></Route> */}
             <Route path="*" element={<PageNotAvailable />}></Route>
           </Routes>
 

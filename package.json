@@ -1,7 +1,7 @@
 {
   "name": "bookworm",
   "version": "0.1.0",
-  "homepage": "https://freakge.github.io/bookworm",
+  "homepage": "https://freakge.github.io/page=1",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
