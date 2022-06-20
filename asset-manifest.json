@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/bookworm/static/css/main.bfee0491.css",
+    "main.js": "/bookworm/static/js/main.cd95490e.js",
+    "index.html": "/bookworm/index.html",
+    "main.bfee0491.css.map": "/bookworm/static/css/main.bfee0491.css.map",
+    "main.cd95490e.js.map": "/bookworm/static/js/main.cd95490e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bfee0491.css",
+    "static/js/main.cd95490e.js"
+  ]
+}
