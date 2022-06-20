@@ -1,3 +1,3 @@
 # Bookworm
 
-Check on [Live](https://freakge.github.io/page=1).
+Check on [Live](https://freakge.github.io/bookworm).
