@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/bookworm/static/css/main.bfee0491.css",
-    "main.js": "/bookworm/static/js/main.895a2f10.js",
+    "main.css": "/bookworm/static/css/main.5456bcc5.css",
+    "main.js": "/bookworm/static/js/main.36e8ae93.js",
     "index.html": "/bookworm/index.html",
-    "main.bfee0491.css.map": "/bookworm/static/css/main.bfee0491.css.map",
-    "main.895a2f10.js.map": "/bookworm/static/js/main.895a2f10.js.map"
+    "main.5456bcc5.css.map": "/bookworm/static/css/main.5456bcc5.css.map",
+    "main.36e8ae93.js.map": "/bookworm/static/js/main.36e8ae93.js.map"
   },
   "entrypoints": [
-    "static/css/main.bfee0491.css",
-    "static/js/main.895a2f10.js"
+    "static/css/main.5456bcc5.css",
+    "static/js/main.36e8ae93.js"
   ]
 }
