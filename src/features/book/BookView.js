@@ -283,7 +283,52 @@ export const BookView = () => {
               <div className="insideRightView">
                 <h1>
                   {activeBook.title}
+                  {screenSize.dynamicWidth < 560 ? (
+                    ""
+                  ) : (
+                    <motion.span
+                      onClick={e => {
+                        const foundItem = shelf.includes(activeBook);
+                        if (!foundItem) {
+                          dispatch(addToFavorites(activeBook));
+                        } else {
+                          dispatch(removeFromFavorites(activeBook.id));
+                        }
+                      }}
+                      id={`fav${activeBook.id}`}
+                      whileHover={{
+                        scale: 1.3,
+                        // color: "hsla(26, 90%, 56%, 1)",
+                      }}
+                      whileTap={{ scale: 1 }}
+                      style={{
+                        color: shelf.includes(activeBook)
+                          ? "hsla(26, 90%, 56%, 1)"
+                          : "hsl(213, 16%, 14%)",
+                        cursor: "pointer",
+                      }}
+                      initial={{ opacity: 0.5, y: -45, zIndex: -2 }}
+                      animate={{
+                        y: 0,
+                        opacity: 1,
+                        zIndex: 0,
+                      }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <MdFavorite />
+                    </motion.span>
+                  )}
+                </h1>
+                <p className="author">by {activeBook.author}</p>
+                <h4 className="rating">
+                  {stars(activeBook.rating)}
+                  <span className="number">{activeBook.rating}</span>
+                </h4>
+                {screenSize.dynamicWidth >= 560 ? (
+                  ""
+                ) : (
                   <motion.span
+                    className="small-fav"
                     onClick={e => {
                       const foundItem = shelf.includes(activeBook);
                       if (!foundItem) {
@@ -304,22 +349,15 @@ export const BookView = () => {
                         : "hsl(213, 16%, 14%)",
                       cursor: "pointer",
                     }}
-                    initial={{ opacity: 0.5, y: -45, zIndex: -2 }}
+                    initial={{ opacity: 0.5 }}
                     animate={{
-                      y: 0,
                       opacity: 1,
-                      zIndex: 0,
                     }}
                     exit={{ opacity: 0 }}
                   >
                     <MdFavorite />
                   </motion.span>
-                </h1>
-                <p className="author">by {activeBook.author}</p>
-                <h4 className="rating">
-                  {stars(activeBook.rating)}
-                  <span className="number">{activeBook.rating}</span>
-                </h4>
+                )}
               </div>
             </div>
             <div className="backView">

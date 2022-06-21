@@ -162,6 +162,8 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
       flex-direction: column;
       img {
         margin-top: 1.5rem;
+        height: 14rem;
+        width: 10rem;
       }
       svg {
         margin-top: 0.5rem;
@@ -175,6 +177,7 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
       .author {
         font-size: 1.1rem;
       }
+
       h1 {
         position: relative;
         svg {
@@ -182,6 +185,15 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
           font-size: 2rem;
           position: absolute;
           top: 0px;
+          &:hover {
+            transition: 0.3s;
+            color: hsla(26, 90%, 56%, 1);
+          }
+        }
+      }
+      .small-fav {
+        svg {
+          font-size: 2rem;
           &:hover {
             transition: 0.3s;
             color: hsla(26, 90%, 56%, 1);

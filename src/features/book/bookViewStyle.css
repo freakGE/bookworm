@@ -133,6 +133,8 @@
 }
 .bookViewContainer .frontView .insideLeftView img {
   margin-top: 1.5rem;
+  height: 14rem;
+  width: 10rem;
 }
 .bookViewContainer .frontView .insideLeftView svg {
   margin-top: 0.5rem;
@@ -156,6 +158,13 @@
   top: 0px;
 }
 .bookViewContainer .frontView .insideRightView h1 svg:hover {
+  transition: 0.3s;
+  color: hsl(26deg, 90%, 56%);
+}
+.bookViewContainer .frontView .insideRightView .small-fav svg {
+  font-size: 2rem;
+}
+.bookViewContainer .frontView .insideRightView .small-fav svg:hover {
   transition: 0.3s;
   color: hsl(26deg, 90%, 56%);
 }
