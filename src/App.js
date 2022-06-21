@@ -109,7 +109,7 @@ function App() {
             <header>
               <div className="header-container wrapper">
                 <Link
-                  to="/bookworm"
+                  to="/"
                   onClick={() => {
                     dispatch(clearGenre());
                     dispatch(clearSearch());
@@ -133,7 +133,7 @@ function App() {
                   </button>
                 </form>
                 <Link
-                  to="/bookworm/shelf"
+                  to="/shelf"
                   onClick={() => {
                     dispatch(removeBook());
                     dispatch(clearSearch());
@@ -172,7 +172,7 @@ function App() {
                       <AiOutlineSearch />
                     </div>
                     <Link
-                      to="/bookworm"
+                      to="/"
                       onClick={() => {
                         dispatch(removeBook());
                         dispatch(clearSearch());
@@ -188,7 +188,7 @@ function App() {
                 )}
 
                 <Link
-                  to="/bookworm/shelf"
+                  to="/shelf"
                   onClick={() => {
                     dispatch(removeBook());
                     dispatch(newPath("/shelf"));
@@ -203,7 +203,7 @@ function App() {
           )}
 
           <Routes>
-            <Route exact path="bookworm" element={<Home />}>
+            <Route exact path="/" element={<Home />}>
               {amountOfPageArray.map((item, index) => {
                 return (
                   <Route
@@ -213,7 +213,7 @@ function App() {
                 );
               })}
             </Route>
-            <Route path="bookworm/shelf" element={<Shelf />}></Route>
+            <Route path="shelf" element={<Shelf />}></Route>
             <Route path="*" element={<PageNotAvailable />}></Route>
           </Routes>
 
