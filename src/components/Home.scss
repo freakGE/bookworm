@@ -25,8 +25,8 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
   user-select: none;
 }
 .home {
-  // height: calc(100vh - (8vh + 4vh)); //100vh - (header + footer)
-  min-height: calc(100vh - (4vh + 8vh));
+  // min-height: calc(100vh - (4vh + 8vh));
+  min-height: calc(100vh - (2.5rem + 4.5rem));
   height: auto;
 
   //   width: 100%;
@@ -588,7 +588,6 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
 //////////////////////  shelf
 
 .shelfSection {
-  height: auto;
   //   width: 100%;
   display: flex;
   //   justify-content: center;
@@ -597,7 +596,9 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
   //   padding: 0rem 2rem;
   // background-color: red;
   color: $bgClr;
-  min-height: calc(100vh - (4vh + 8vh));
+  // min-height: calc(100vh - (4vh + 8vh));
+  min-height: calc(100vh - (2.5rem + 4.5rem));
+  height: auto;
   .header {
     position: relative;
     background-color: $primaryClr;
@@ -862,7 +863,8 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
 }
 
 .pageNotAvailable {
-  min-height: calc(100vh - (4vh + 8vh));
+  // min-height: calc(100vh - (4vh + 8vh));
+  min-height: calc(100vh - (2.5rem + 4.5rem));
   width: 100%;
   display: flex;
   justify-content: center;

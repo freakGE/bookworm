@@ -6,59 +6,30 @@ import "./Home.css";
 import EmptyHome from "./EmptyHome";
 import { BookView } from "../features/book/BookView";
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Routes,
-  Switch,
-  useSearchParams,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 import booksData from "../booksData.json";
 import {
   BsStarFill,
   BsStar,
   BsStarHalf,
-  BsThreeDots,
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
-import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
 import { MdFavorite } from "react-icons/md";
-import { GiBookshelf } from "react-icons/gi";
 
 //store
 import {
   addToFavorites,
   removeFromFavorites,
-  bookOnshelf,
 } from "../features/shelf/shelfSlice";
 
-import {
-  addGenre,
-  removeGenre,
-  clearGenre,
-  listOfGenre,
-} from "../features/genre/genreSlice";
+import { newSearch } from "../features/search/searchSlice";
 
-import {
-  newSearch,
-  clearSearch,
-  currentSearch,
-} from "../features/search/searchSlice";
+import { savePath } from "../features/path/pathSlice";
 
-import {
-  currentPath,
-  newPath,
-  prevPath,
-  savePath,
-} from "../features/path/pathSlice";
+import { addBook, removeBook } from "../features/book/bookSlice";
 
-import { addBook, removeBook, activeBook } from "../features/book/bookSlice";
-
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import Slide from "./Slide";
 import Pagination from "./Pagination";
@@ -136,15 +107,9 @@ export default function Home(props) {
     }
   }, [activeBook]);
 
-  // useEffect(() => {
-  //   console.log(showBook);
-  // }, [showBook]);
-
   useEffect(() => {
     //   // URL
     if (showBook != null && showBook.length > 0) {
-      // dispatch(addBook(showBook));
-      // console.log(showBook);
       const [bookTitle, bookId] = showBook.split("-");
       booksDataList.filter((item, index) => {
         if (item.title.toLowerCase() === bookTitle && item.id && bookId) {
@@ -247,9 +212,6 @@ export default function Home(props) {
   }, [screenSize]);
 
   ///
-
-  // data = data.slice(0,19);
-
   let tabletWidth = 930;
   let smallTableWidth = 780;
   let mobileWidth = 546;
@@ -258,8 +220,6 @@ export default function Home(props) {
     if (screenSize.dynamicWidth > tabletWidth) {
       setBooksLength(20);
       setRowLength(5);
-      // setPaginationLength(Math.round(testData.length / booksLength));
-      // setPaginationLength(Math.round(500 / booksLength));
       setIsMobile(false);
     } else if (
       screenSize.dynamicWidth <= tabletWidth &&
@@ -267,7 +227,6 @@ export default function Home(props) {
     ) {
       setBooksLength(20);
       setRowLength(4);
-      // setPaginationLength(Math.round(testData.length / booksLength));
       setIsMobile(false);
     } else if (
       screenSize.dynamicWidth <= smallTableWidth &&
@@ -275,12 +234,10 @@ export default function Home(props) {
     ) {
       setBooksLength(18);
       setRowLength(3);
-      // setPaginationLength(Math.round(testData.length / booksLength));
       setIsMobile(false);
     } else if (screenSize.dynamicWidth <= mobileWidth) {
       setBooksLength(20);
       setRowLength(2);
-      // setPaginationLength(Math.round(testData.length / booksLength));
       setIsMobile(true);
     }
   }, []);
@@ -290,7 +247,8 @@ export default function Home(props) {
   let columnStyle = "";
 
   if (data.length > 15) {
-    columnStyle = "repeat(5, 1fr)";
+    columnStyle =
+      screenSize.dynamicWidth < tabletWidth ? "repeat(4,1fr)" : "repeat(5,1fr)";
     rowStyle = "repeat(1, 1fr)"; //4, 1fr
   } else if (data.length >= 10 && data.length <= 15) {
     columnStyle = "repeat(4, 1fr)";
@@ -318,6 +276,7 @@ export default function Home(props) {
       rowStyle = "repeat(1, 1fr)";
     }
   }
+
   let booksContainerStyle = {
     gridTemplateRows: rowStyle,
     gridTemplateColumns: columnStyle,

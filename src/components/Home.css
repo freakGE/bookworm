@@ -11,7 +11,7 @@
 }
 
 .home {
-  min-height: 88vh;
+  min-height: calc(100vh - 7rem);
   height: auto;
   display: flex;
   align-items: center;
@@ -474,12 +474,12 @@
 }
 
 .shelfSection {
-  height: auto;
   display: flex;
   align-items: center;
   flex-direction: column;
   color: hsl(213deg, 16%, 14%);
-  min-height: 88vh;
+  min-height: calc(100vh - 7rem);
+  height: auto;
 }
 .shelfSection .header {
   position: relative;
@@ -692,7 +692,7 @@
 }
 
 .pageNotAvailable {
-  min-height: 88vh;
+  min-height: calc(100vh - 7rem);
   width: 100%;
   display: flex;
   justify-content: center;
