@@ -194,4 +194,12 @@
   height: 0.15rem;
   width: min(100%, 60rem);
   margin-top: 1rem;
+}
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }/*# sourceMappingURL=bookViewStyle.css.map */

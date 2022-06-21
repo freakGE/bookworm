@@ -240,3 +240,12 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
   width: min(100%, 60rem);
   margin-top: 1rem;
 }
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

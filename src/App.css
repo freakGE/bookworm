@@ -2,14 +2,6 @@ html {
   scrollbar-color: #404449 #f0f0f0;
 }
 
-svg {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
 button,
 a {
   cursor: pointer;

@@ -246,6 +246,7 @@ export const BookView = () => {
                   zIndex: 0,
                 }}
                 exit={{ opacity: 0 }}
+                className="unselectable"
               >
                 <MdFavorite />
               </motion.div>
@@ -314,6 +315,7 @@ export const BookView = () => {
                         zIndex: 0,
                       }}
                       exit={{ opacity: 0 }}
+                      className="unselectable"
                     >
                       <MdFavorite />
                     </motion.span>
@@ -328,7 +330,7 @@ export const BookView = () => {
                   ""
                 ) : (
                   <motion.span
-                    className="small-fav"
+                    className="small-fav unselectable"
                     onClick={e => {
                       const foundItem = shelf.includes(activeBook);
                       if (!foundItem) {
