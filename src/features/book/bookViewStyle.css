@@ -1,5 +1,5 @@
 .bookSection {
-  min-height: 88vh;
+  min-height: calc(100vh - 7rem);
   display: flex;
   justify-content: space-between;
   align-items: center;

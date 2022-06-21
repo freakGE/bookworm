@@ -8,7 +8,8 @@ $secondaryClrHover: hsla(26, 90%, 56%, 1);
 $secondaryClrFocus: hsla(26, 90%, 53%, 1);
 
 .bookSection {
-  min-height: calc(100vh - (4vh + 8vh));
+  // min-height: calc(100vh - (4vh + 8vh));
+  min-height: calc(100vh - (7rem));
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -235,7 +236,6 @@ $secondaryClrFocus: hsla(26, 90%, 53%, 1);
 
 .lineX {
   background-color: $primaryClr;
-  // background-color: green;
   height: 0.15rem;
   width: min(100%, 60rem);
   margin-top: 1rem;

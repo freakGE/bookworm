@@ -378,7 +378,11 @@ export const BookView = () => {
       <div className="lineX"></div>
       <h2
         style={{
-          margin: moreDescription ? "1.25rem 0" : "0",
+          margin: moreDescription
+            ? "1.25rem 0"
+            : screenSize.dynamicHeight < 1000
+            ? "1rem 0"
+            : "0",
         }}
       >
         Readers also enjoyed
