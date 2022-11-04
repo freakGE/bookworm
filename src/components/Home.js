@@ -34,6 +34,8 @@ import { useLocation } from "react-router-dom";
 import Slide from "./Slide";
 import Pagination from "./Pagination";
 
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 export default function Home(props) {
   let booksDataList = booksData.books; //test
 
@@ -586,7 +588,7 @@ export default function Home(props) {
                       ) : (
                         ""
                       )}
-                      <img
+                      <LazyLoadImage
                         src={book.image}
                         alt={book.title}
                         style={{
@@ -601,7 +603,7 @@ export default function Home(props) {
                               : "11rem",
                         }}
                         className="unselectable"
-                      ></img>
+                      />
                       <div className="card-cont">
                         <h3
                           style={{

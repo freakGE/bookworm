@@ -18,6 +18,8 @@ import "./bookViewStyle.css";
 import { motion } from "framer-motion";
 import Slide from "../../components/Slide";
 
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 export const BookView = () => {
   // const { bookId } = useParams();
   const dispatch = useDispatch();
@@ -218,7 +220,7 @@ export const BookView = () => {
         <div className="bookViewContainer">
           <div className="leftView">
             <div className="insideLeftView">
-              <img src={activeBook.image} alt={activeBook.title} />
+              <LazyLoadImage src={activeBook.image} alt={activeBook.title} />
               <motion.div
                 onClick={e => {
                   const foundItem = shelf.includes(activeBook);
@@ -278,7 +280,7 @@ export const BookView = () => {
           <div className="mobileView">
             <div className="frontView">
               <div className="insideLeftView">
-                <img src={activeBook.image} alt={activeBook.title} />
+                <LazyLoadImage src={activeBook.image} alt={activeBook.title} />
               </div>
               <div className="line"></div>
               <div className="insideRightView">

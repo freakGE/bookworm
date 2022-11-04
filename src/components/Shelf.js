@@ -46,6 +46,8 @@ import {
 
 import "./Home.css";
 
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 export default function Shelf() {
   const [booksLength, setBooksLength] = useState(20);
   const [rowLength, setRowLength] = useState(4);
@@ -515,7 +517,7 @@ export default function Shelf() {
                             ) : (
                               ""
                             )}
-                            <img
+                            <LazyLoadImage
                               src={book.image}
                               alt={book.title}
                               style={{
@@ -530,7 +532,7 @@ export default function Shelf() {
                                     : "11rem",
                               }}
                               className="unselectable"
-                            ></img>
+                            />
                             <div className="card-cont">
                               <h3
                                 style={{

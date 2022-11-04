@@ -12,6 +12,8 @@ import "./Home.css";
 import { BsStarFill, BsStar, BsStarHalf } from "react-icons/bs";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri";
 
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
 export default function Slide(props) {
   const activeBook = useSelector(state => state.book.activeBook);
   const dispatch = useDispatch();
@@ -322,14 +324,14 @@ export default function Slide(props) {
               >
                 {prevBooks.map(book => (
                   <motion.div className="item" key={book.id}>
-                    <img
+                    <LazyLoadImage
                       src={book.image}
                       alt={book.title}
                       onClick={() => {
                         dispatch(addBook(book));
                       }}
                       className="unselectable"
-                    ></img>
+                    />
                     <div className="card-cont">
                       <h3
                         style={{
@@ -384,14 +386,14 @@ export default function Slide(props) {
             >
               {prevBooks.map(book => (
                 <motion.div className="item" key={book.id}>
-                  <img
+                  <LazyLoadImage
                     src={book.image}
                     alt={book.title}
                     onClick={() => {
                       dispatch(addBook(book));
                     }}
                     className="unselectable"
-                  ></img>
+                  />
                   <div className="card-cont">
                     <h3
                       style={{
